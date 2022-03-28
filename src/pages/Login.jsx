@@ -1,11 +1,11 @@
 import React from 'react';
-import fetchRecipesDrinks from '../services/apiDrink';
-import fetchRecipesFoods from '../services/apiFood';
+import Header from '../components/Header';
 
 export default function Login() {
-  console.log(fetchRecipesFoods('letter', 'a'));
-  console.log(fetchRecipesDrinks('letter', 'a'));
   return (
-    <div>Login</div>
+    <div>
+      Login
+      <Header title="Login" />
+    </div>
   );
 }
