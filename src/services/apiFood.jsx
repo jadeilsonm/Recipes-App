@@ -1,7 +1,7 @@
 const endPoints = {
-  search: 'www.themealdb.com/api/json/v1/1/search.php?s=',
+  name: 'www.themealdb.com/api/json/v1/1/search.php?s=',
   letter: 'www.themealdb.com/api/json/v1/1/search.php?f=',
-  ingredients: 'www.themealdb.com/api/json/v1/1/list.php?i=',
+  id: 'www.themealdb.com/api/json/v1/1/lookup.php?i=',
 };
 
 const fetchRecipesFoods = async (type, argument) => {
