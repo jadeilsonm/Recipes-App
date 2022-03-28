@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Input from './Input';
+import Button from './Button';
 
-export default function Header({ title }) {
+export default function Header({ title, isSearch }) {
   const [search, setSearch] = useState('');
   const [isInput, setIsInput] = useState(false);
 
@@ -29,12 +30,13 @@ export default function Header({ title }) {
         />
       </button>
       <h1 data-testid="page-title">{title}</h1>
-      <button
-        type="button"
+
+      { isSearch && <Button
         onClick={ onClick }
-      >
-        <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
-      </button>
+        label={ <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" /> }
+
+      />}
+
       {
         isInput && <Input
           label="Search Recipe: "
@@ -51,4 +53,10 @@ export default function Header({ title }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  isSearch: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  isSearch: true,
+
 };
