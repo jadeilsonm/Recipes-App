@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cards from '../components/Cards';
 import fetchRecipesFoods from '../services/apiFood';
+import Header from '../components/Header';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;
@@ -22,6 +23,8 @@ export default function Foods() {
 
   return (
     <div>
+
+      <Header title="Foods" />
       Foods
       {
         getCategory.map(({ strCategory: cat }) => (
@@ -34,6 +37,7 @@ export default function Foods() {
         console.log('');
         return <Cards key={ i } name={ strMeal } thumb={ strMealThumb } index={ i } />;
       })}
+
     </div>
   );
 }
