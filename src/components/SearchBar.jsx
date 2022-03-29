@@ -11,7 +11,14 @@ export default function SearchBar() {
   const handleChangeSearch = ({ target: { value } }) => setSearch(value);
 
   return (
-    <div>
+    <div
+      style={ {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        justifyContent: 'space-around',
+      } }
+    >
       <Input
         label="Search Recipe: "
         type="text"
