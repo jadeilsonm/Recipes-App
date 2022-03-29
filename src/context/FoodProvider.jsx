@@ -6,6 +6,8 @@ import fetchRecipesFoods from '../services/apiFood';
 
 export default function FoodProvider({ children }) {
   const [data, setData] = useState([]);
+  const [dataAllFoods, setDataAllFoods] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
   const { searchInfo } = useContext(UserContext);
   useEffect(() => {
     const { type, searchValue } = searchInfo;
@@ -20,8 +22,20 @@ export default function FoodProvider({ children }) {
     if (type.length !== 0) return fetchApi();
   }, [searchInfo]);
 
+  useEffect(() => {
+    const fetchAllFoods = async () => {
+      const responseFoods = await fetchRecipesFoods('name', '');
+      const responseCategory = await fetchRecipesFoods('category', '');
+      setDataCategory(responseCategory);
+      setDataAllFoods(responseFoods);
+    };
+    fetchAllFoods();
+  }, []);
+
   const contextValue = {
     data,
+    dataCategory,
+    dataAllFoods,
   };
 
   return (

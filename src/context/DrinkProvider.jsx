@@ -6,6 +6,8 @@ import fetchRecipesDrinks from '../services/apiDrink';
 
 export default function DrinkProvider({ children }) {
   const [data, setData] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [dataAllDrinks, setDataAllDrinks] = useState([]);
   const { searchInfo } = useContext(UserContext);
   useEffect(() => {
     const { type, searchValue } = searchInfo;
@@ -20,8 +22,20 @@ export default function DrinkProvider({ children }) {
     if (searchValue.length !== 0) return fetchApi();
   }, [searchInfo]);
 
+  useEffect(() => {
+    const fetchAllDrinks = async () => {
+      const responseDrinks = await fetchRecipesDrinks('name', '');
+      const responseCategory = await fetchRecipesDrinks('category', '');
+      setDataCategory(responseCategory);
+      setDataAllDrinks(responseDrinks);
+    };
+    fetchAllDrinks();
+  }, []);
+
   const contextValue = {
     data,
+    dataCategory,
+    dataAllDrinks,
   };
 
   return (
