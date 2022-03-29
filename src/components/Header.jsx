@@ -15,27 +15,38 @@ export default function Header({ title, hasSearch }) {
   const onClick = () => setIsInput(!isInput);
 
   return (
-    <div style={ { display: 'flex' } }>
-      <Button
-        onClick={ reditectTo }
-        label={ <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profileIcon"
-        /> }
-      />
+    <div>
+      <div
+        style={ { display: 'flex',
+          width: '100%',
+          justifyContent: 'space-around',
+        } }
+      >
+        <Button
+          onClick={ reditectTo }
+          label={ <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profileIcon"
+          /> }
+        />
 
-      <h1 data-testid="page-title">{title}</h1>
+        <h1 data-testid="page-title">{title}</h1>
 
-      { hasSearch && <Button
-        onClick={ onClick }
-        label={ <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" /> }
-
-      />}
-
-      {
-        isInput && <SearchBar />
-      }
+        { hasSearch && <Button
+          onClick={ onClick }
+          label={ <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="searchIcon"
+          /> }
+        />}
+      </div>
+      <div>
+        {
+          isInput && <SearchBar />
+        }
+      </div>
     </div>
   );
 }
