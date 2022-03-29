@@ -3,19 +3,16 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import Input from './Input';
+import SearchBar from './SearchBar';
 import Button from './Button';
 
 export default function Header({ title, hasSearch }) {
-  const [search, setSearch] = useState('');
   const [isInput, setIsInput] = useState(false);
 
   const history = useHistory();
   const reditectTo = () => history.push('/profile');
 
   const onClick = () => setIsInput(!isInput);
-
-  const handleChangeSearch = ({ target: { value } }) => setSearch(value);
 
   return (
     <div style={ { display: 'flex' } }>
@@ -37,14 +34,7 @@ export default function Header({ title, hasSearch }) {
       />}
 
       {
-        isInput && <Input
-          label="Search Recipe: "
-          type="text"
-          name="search"
-          onChange={ handleChangeSearch }
-          value={ search }
-          dataTest="search-input"
-        />
+        isInput && <SearchBar />
       }
     </div>
   );
