@@ -4,7 +4,7 @@ import Header from '../components/Header';
 export default function Profile() {
   return (
     <div>
-      <Header title="Profile" isSearch={ false } />
+      <Header title="Profile" hasSearch={ false } />
       Profile
     </div>
   );

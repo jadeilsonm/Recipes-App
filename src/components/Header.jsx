@@ -6,7 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 import Input from './Input';
 import Button from './Button';
 
-export default function Header({ title, isSearch }) {
+export default function Header({ title, hasSearch }) {
   const [search, setSearch] = useState('');
   const [isInput, setIsInput] = useState(false);
 
@@ -19,19 +19,18 @@ export default function Header({ title, isSearch }) {
 
   return (
     <div style={ { display: 'flex' } }>
-      <button
-        type="button"
+      <Button
         onClick={ reditectTo }
-      >
-        <img
+        label={ <img
           data-testid="profile-top-btn"
           src={ profileIcon }
           alt="profileIcon"
-        />
-      </button>
+        /> }
+      />
+
       <h1 data-testid="page-title">{title}</h1>
 
-      { isSearch && <Button
+      { hasSearch && <Button
         onClick={ onClick }
         label={ <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" /> }
 
@@ -53,10 +52,9 @@ export default function Header({ title, isSearch }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  isSearch: PropTypes.bool,
+  hasSearch: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  isSearch: true,
-
+  hasSearch: true,
 };
