@@ -8,10 +8,12 @@ export default function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
 
+  console.log(user);
+
   return (
     <div>
       <Header title="Profile" hasSearch={ false } />
-      <p data-testid="profile-email">{user.email}</p>
+      { user && <p data-testid="profile-email">{user.email}</p> }
       <Button
         label="Done Recipes"
         dataTest="profile-done-btn"
