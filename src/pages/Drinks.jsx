@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
 import DrinkContext from '../context/DrinkContext';
@@ -10,12 +11,16 @@ const LIMIT_MAX_CATEGORY = 5;
 export default function Drinks() {
   const { dataAllDrinks, dataCategory, data } = useContext(DrinkContext);
   const [arrCards, setArrCard] = useState([]);
+  const [isFilterAll, setIsFilterAll] = useState(false);
   const { handleSearchInfo } = useContext(UserContext);
+  const history = useHistory();
 
   useEffect(() => {
+    console.log(dataAllDrinks);
     if (data.length !== 0) setArrCard(data);
     else setArrCard(dataAllDrinks);
-  }, [dataAllDrinks, data]);
+    if (isFilterAll) setArrCard(dataAllDrinks);
+  }, [dataAllDrinks, data, isFilterAll]);
 
   const newArrCategory = [...new Set(dataCategory)];
 
@@ -35,10 +40,25 @@ export default function Drinks() {
           </button>
         ))
       }
-      { arrCards.slice(0, LIMIT_MAX_CARDS).map(({ strDrinkThumb, strDrink }, i) => {
-        console.log('');
-        return <Cards key={ i } name={ strDrink } thumb={ strDrinkThumb } index={ i } />;
-      })}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setIsFilterAll(true) }
+      >
+        All
+      </button>
+      { arrCards.slice(0, LIMIT_MAX_CARDS)
+        .map(({ strDrinkThumb, strDrink, idDrink }, i) => {
+          const clickCard = () => history.push(`/drinks/${idDrink}`);
+          return (<Cards
+            key={ i }
+            id={ idDrink }
+            name={ strDrink }
+            thumb={ strDrinkThumb }
+            clickCard={ clickCard }
+            index={ i }
+          />);
+        })}
     </div>
   );
 }
