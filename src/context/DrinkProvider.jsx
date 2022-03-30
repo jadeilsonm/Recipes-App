@@ -7,7 +7,6 @@ import fetchRecipesDrinks from '../services/apiDrink';
 
 export default function DrinkProvider({ children }) {
   const [filteredData, setFilteredData] = useState([]);
-
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAllDrinks, setDataAllDrinks] = useState([]);
   const { searchInfo } = useContext(UserContext);
@@ -23,7 +22,7 @@ export default function DrinkProvider({ children }) {
       setFilteredData(result);
     };
 
-    if (searchValue.length !== 0 && model === 'drinks') fetchApi();
+    if (type.length !== 0 && model === 'drinks') fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {

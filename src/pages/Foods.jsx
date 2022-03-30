@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
-
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
 

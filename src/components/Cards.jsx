@@ -5,16 +5,21 @@ function Cards(props) {
   const { name, thumb, index, clickCard } = props;
 
   return (
-    <div>
-      <div
-        data-testid={ `${index}-recipe-card` }
-        onClick={ clickCard }
-        role="button"
-        tabIndex={ 0 }
-        aria-hidden="true"
-      >
-        <img data-testid={ `${index}-card-img` } src={ thumb } alt="Thumb" />
+    <div
+      onClick={ clickCard }
+      role="button"
+      tabIndex={ 0 }
+      aria-hidden="true"
+      style={ { width: '100%', textAlign: 'center' } }
+    >
+      <div data-testid={ `${index}-recipe-card` }>
         <h3 data-testid={ `${index}-card-name` }>{ name }</h3>
+        <img
+          style={ { width: '80%' } }
+          data-testid={ `${index}-card-img` }
+          src={ thumb }
+          alt="Thumb"
+        />
       </div>
     </div>
   );
