@@ -11,6 +11,7 @@ export default function Login() {
   const history = useHistory();
   const reditectTo = () => history.push('/foods');
 
+  // https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
   const checkEmail = () => /^\S+@\S+\.\S+$/.test(email);
 
   const checkPassword = () => {

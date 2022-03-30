@@ -2,11 +2,15 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
+
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;
+
+import Menu from '../components/Menu';
+
 
 export default function Foods() {
   const { dataCategory, dataAllFoods, data } = useContext(FoodContext);
@@ -35,7 +39,6 @@ export default function Foods() {
 
   return (
     <div>
-
       <Header title="Foods" />
       Foods
       {
@@ -69,7 +72,7 @@ export default function Foods() {
           index={ i }
         />);
       })}
-
+      <Menu />
     </div>
   );
 }
