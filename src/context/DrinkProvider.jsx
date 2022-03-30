@@ -6,7 +6,9 @@ import UserContext from './UserContext';
 import fetchRecipesDrinks from '../services/apiDrink';
 
 export default function DrinkProvider({ children }) {
+
   const [filteredData, setFilteredData] = useState([]);
+
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAllDrinks, setDataAllDrinks] = useState([]);
   const { searchInfo } = useContext(UserContext);
@@ -33,6 +35,8 @@ export default function DrinkProvider({ children }) {
   }, [filteredData, history]);
 
   useEffect(() => {
+
+
     const fetchAllDrinks = async () => {
       const responseDrinks = await fetchRecipesDrinks('name', '');
       const responseCategory = await fetchRecipesDrinks('category', '');
@@ -44,6 +48,7 @@ export default function DrinkProvider({ children }) {
 
   const contextValue = {
     filteredData,
+
     dataCategory,
     dataAllDrinks,
   };

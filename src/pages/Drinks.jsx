@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import DrinkContext from '../context/DrinkContext';
 import UserContext from '../context/UserContext';
 
+
 import Menu from '../components/Menu';
 
 const LIMIT_MAX_CARDS = 12;
@@ -12,6 +13,7 @@ const LIMIT_MAX_CATEGORY = 5;
 
 export default function Drinks() {
   const { dataAllDrinks, dataCategory, filteredData } = useContext(DrinkContext);
+
   const [arrCards, setArrCard] = useState([]);
   const [isFilterAll, setIsFilterAll] = useState(false);
   const { handleSearchInfo } = useContext(UserContext);
@@ -19,10 +21,12 @@ export default function Drinks() {
 
   useEffect(() => {
     console.log(dataAllDrinks);
+
     if (filteredData.length !== 0) setArrCard(filteredData);
     else setArrCard(dataAllDrinks);
     if (isFilterAll) setArrCard(dataAllDrinks);
   }, [dataAllDrinks, filteredData, isFilterAll]);
+
 
   const newArrCategory = [...new Set(dataCategory)];
 
