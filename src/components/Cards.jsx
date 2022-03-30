@@ -10,11 +10,17 @@ function Cards(props) {
       role="button"
       tabIndex={ 0 }
       aria-hidden="true"
+      style={ { width: '100%', textAlign: 'center' } }
     >
 
       <div data-testid={ `${index}-recipe-card` }>
-        <img data-testid={ `${index}-card-img` } src={ thumb } alt="Thumb" />
         <h3 data-testid={ `${index}-card-name` }>{ name }</h3>
+        <img
+          style={ { width: '80%' } }
+          data-testid={ `${index}-card-img` }
+          src={ thumb }
+          alt="Thumb"
+        />
       </div>
     </div>
   );

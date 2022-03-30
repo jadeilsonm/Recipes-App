@@ -2,11 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
+import Menu from '../components/Menu';
 import DrinkContext from '../context/DrinkContext';
 import UserContext from '../context/UserContext';
-
-
-import Menu from '../components/Menu';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;
@@ -20,13 +18,10 @@ export default function Drinks() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(dataAllDrinks);
-
     if (filteredData.length !== 0) setArrCard(filteredData);
     else setArrCard(dataAllDrinks);
     if (isFilterAll) setArrCard(dataAllDrinks);
   }, [dataAllDrinks, filteredData, isFilterAll]);
-
 
   const newArrCategory = [...new Set(dataCategory)];
 

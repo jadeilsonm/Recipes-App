@@ -8,8 +8,6 @@ export default function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
 
-  console.log(user);
-
   return (
     <div>
       <Header title="Profile" hasSearch={ false } />
