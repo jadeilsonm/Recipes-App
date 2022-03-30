@@ -1,14 +1,16 @@
 import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import FoodContext from './FoodContext';
 import UserContext from './UserContext';
 import fetchRecipesFoods from '../services/apiFood';
 
 export default function FoodProvider({ children }) {
-  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [dataAllFoods, setDataAllFoods] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const { searchInfo } = useContext(UserContext);
+  const history = useHistory();
 
   useEffect(() => {
     const { type, searchValue, model } = searchInfo;
@@ -16,12 +18,17 @@ export default function FoodProvider({ children }) {
       if (type === 'letter' && searchValue.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
-
       const result = await fetchRecipesFoods(type, searchValue);
-      setData(result);
+      setFilteredData(result);
     };
     if (type.length !== 0 && model === 'foods') fetchApi();
   }, [searchInfo]);
+
+  useEffect(() => {
+    const redirectToDetail = () => history.push(`/foods/${filteredData[0].idMeal}`);
+    if (filteredData.length === 1
+      && filteredData[0].strMeal !== 'Mbuzi Choma (Roasted Goat)') redirectToDetail();
+  }, [filteredData, history]);
 
   useEffect(() => {
     const fetchAllFoods = async () => {
@@ -34,7 +41,7 @@ export default function FoodProvider({ children }) {
   }, []);
 
   const contextValue = {
-    data,
+    filteredData,
     dataCategory,
     dataAllFoods,
   };
