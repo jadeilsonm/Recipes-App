@@ -57,7 +57,9 @@ export default function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => handleSearchInfo(radioFilter, search) }
+        onClick={ () => {
+          handleSearchInfo(radioFilter, search);
+        } }
       >
         Search
       </button>
