@@ -10,25 +10,28 @@ const LIMIT_MAX_CATEGORY = 5;
 
 export default function Foods() {
   const { dataCategory, dataAllFoods, data } = useContext(FoodContext);
-  // const [isFilter, setIsFilter] = useState(false);
+  const [filter, setFilter] = useState([]);
   const [isFilterAll, setIsFilterAll] = useState(false);
   const [arrCards, setArrCard] = useState([]);
   const { handleSearchInfo } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
-    console.log('data', data);
-    // console.log(dataAllFoods);
     if (data.length !== 0) setArrCard(data);
     else setArrCard(dataAllFoods);
     if (isFilterAll) setArrCard(dataAllFoods);
   }, [dataAllFoods, data, isFilterAll]);
 
-  // const clickByCategory = () => {
-  //   console.log('click');
-  // handleSearchInfo('filterByCategory', cat, 'foods')
-  //   setIsFilter(!isFilter);
-  // };
+  const clickByCategory = (value) => {
+    console.log(filter.includes(value));
+    if (filter.includes(value)) {
+      setFilter([]);
+      setIsFilterAll(true);
+    } else {
+      setFilter(filter.push(value));
+      handleSearchInfo('filterByCategory', value, 'foods');
+    }
+  };
 
   return (
     <div>
@@ -42,7 +45,7 @@ export default function Foods() {
             type="button"
             value={ cat }
             data-testid={ `${cat}-category-filter` }
-            onClick={ () => handleSearchInfo('filterByCategory', cat, 'foods') }
+            onClick={ ({ target: { value } }) => clickByCategory(value) }
           >
             {cat}
           </button>
