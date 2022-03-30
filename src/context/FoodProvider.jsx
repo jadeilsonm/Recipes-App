@@ -1,14 +1,17 @@
 import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import FoodContext from './FoodContext';
 import UserContext from './UserContext';
 import fetchRecipesFoods from '../services/apiFood';
 
 export default function FoodProvider({ children }) {
-  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [dataAllFoods, setDataAllFoods] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const { searchInfo } = useContext(UserContext);
+  const history = useHistory();
+
 
   useEffect(() => {
     const { type, searchValue, model } = searchInfo;
@@ -18,12 +21,19 @@ export default function FoodProvider({ children }) {
       }
 
       const result = await fetchRecipesFoods(type, searchValue);
-      setData(result);
+      setFilteredData(result);
     };
-    if (type.length !== 0 && model === 'foods') return fetchApi();
+    
+    if (type.length !== 0 && model === 'foods') fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {
+    const redirectToDetail = () => history.push(`/foods/${filteredData[0].idMeal}`);
+    if (filteredData.length === 1) redirectToDetail();
+  }, [filteredData, history]);
+
+  useEffect(() => {
+
     const fetchAllFoods = async () => {
       const responseFoods = await fetchRecipesFoods('name', '');
       const responseCategory = await fetchRecipesFoods('category', '');
@@ -34,7 +44,9 @@ export default function FoodProvider({ children }) {
   }, []);
 
   const contextValue = {
-    data,
+
+    filteredData,
+
     dataCategory,
     dataAllFoods,
   };

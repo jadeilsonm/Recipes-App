@@ -6,14 +6,15 @@ import Header from '../components/Header';
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
 
-const LIMIT_MAX_CARDS = 12;
-const LIMIT_MAX_CATEGORY = 5;
 
 import Menu from '../components/Menu';
 
+const LIMIT_MAX_CARDS = 12;
+const LIMIT_MAX_CATEGORY = 5;
 
 export default function Foods() {
-  const { dataCategory, dataAllFoods, data } = useContext(FoodContext);
+  const { dataCategory, dataAllFoods, filteredData } = useContext(FoodContext);
+
   const [filter, setFilter] = useState([]);
   const [isFilterAll, setIsFilterAll] = useState(false);
   const [arrCards, setArrCard] = useState([]);
@@ -21,10 +22,12 @@ export default function Foods() {
   const history = useHistory();
 
   useEffect(() => {
-    if (data.length !== 0) setArrCard(data);
+
+    if (filteredData.length !== 0) setArrCard(filteredData);
     else setArrCard(dataAllFoods);
     if (isFilterAll) setArrCard(dataAllFoods);
-  }, [dataAllFoods, data, isFilterAll]);
+  }, [dataAllFoods, filteredData, isFilterAll]);
+
 
   const clickByCategory = (value) => {
     console.log(filter.includes(value));
