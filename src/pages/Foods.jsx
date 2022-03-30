@@ -2,15 +2,13 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
+import Menu from '../components/Menu';
 
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;
-
-import Menu from '../components/Menu';
-
 
 export default function Foods() {
   const { dataCategory, dataAllFoods, data } = useContext(FoodContext);
@@ -21,8 +19,10 @@ export default function Foods() {
   const history = useHistory();
 
   useEffect(() => {
-    if (data.length !== 0) setArrCard(data);
-    else setArrCard(dataAllFoods);
+    if (data.length !== 0) {
+      setArrCard(data);
+      setIsFilterAll(false);
+    } else setArrCard(dataAllFoods);
     if (isFilterAll) setArrCard(dataAllFoods);
   }, [dataAllFoods, data, isFilterAll]);
 
@@ -32,7 +32,7 @@ export default function Foods() {
       setFilter([]);
       setIsFilterAll(true);
     } else {
-      setFilter(filter.push(value));
+      setFilter([value]);
       handleSearchInfo('filterByCategory', value, 'foods');
     }
   };

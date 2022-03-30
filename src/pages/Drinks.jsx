@@ -4,12 +4,10 @@ import Cards from '../components/Cards';
 import Header from '../components/Header';
 import DrinkContext from '../context/DrinkContext';
 import UserContext from '../context/UserContext';
+import Menu from '../components/Menu';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;
-
-import Menu from '../components/Menu';
-
 
 export default function Drinks() {
   const { dataAllDrinks, dataCategory, data } = useContext(DrinkContext);

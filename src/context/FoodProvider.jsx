@@ -20,7 +20,7 @@ export default function FoodProvider({ children }) {
       const result = await fetchRecipesFoods(type, searchValue);
       setData(result);
     };
-    if (type.length !== 0 && model === 'foods') return fetchApi();
+    if (type.length !== 0 && model === 'foods') fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {
