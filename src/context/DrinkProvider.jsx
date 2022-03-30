@@ -6,32 +6,46 @@ import UserContext from './UserContext';
 import fetchRecipesDrinks from '../services/apiDrink';
 
 export default function DrinkProvider({ children }) {
-  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [dataAllDrinks, setDataAllDrinks] = useState([]);
   const { searchInfo } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
-    const { type, searchValue } = searchInfo;
+    const { type, searchValue, model } = searchInfo;
     const fetchApi = async () => {
       if (type === 'letter' && searchValue.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
 
       const result = await fetchRecipesDrinks(type, searchValue);
-      setData(result);
+      setFilteredData(result);
     };
 
-    if (searchValue.length !== 0) fetchApi();
+    if (searchValue.length !== 0 && model === 'drinks') fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {
-    const redirectToDetail = () => history.push(`/drinks/${data[0].idDrink}`);
+    const redirectToDetail = () => history.push(`/drinks/${filteredData[0].idDrink}`);
     const goToDrinkDetail = () => redirectToDetail();
-    if (data.length === 1) goToDrinkDetail();
-  }, [data, history]);
+    if (filteredData.length === 1) goToDrinkDetail();
+  }, [filteredData, history]);
+
+  useEffect(() => {
+    const fetchAllDrinks = async () => {
+      const responseDrinks = await fetchRecipesDrinks('name', '');
+      const responseCategory = await fetchRecipesDrinks('category', '');
+      setDataCategory(responseCategory);
+      setDataAllDrinks(responseDrinks);
+    };
+    fetchAllDrinks();
+  }, []);
 
   const contextValue = {
-    data,
+    filteredData,
+    dataCategory,
+    dataAllDrinks,
   };
 
   return (

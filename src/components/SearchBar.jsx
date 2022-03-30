@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import Input from './Input';
 import UserContext from '../context/UserContext';
 
@@ -9,6 +10,8 @@ export default function SearchBar() {
   const { handleSearchInfo } = useContext(UserContext);
 
   const handleChangeSearch = ({ target: { value } }) => setSearch(value);
+  const location = useLocation();
+  const path = location.pathname.slice(1);
 
   return (
     <div
@@ -58,7 +61,7 @@ export default function SearchBar() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => {
-          handleSearchInfo(radioFilter, search);
+          handleSearchInfo(radioFilter, search, path);
         } }
       >
         Search

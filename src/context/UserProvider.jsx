@@ -5,11 +5,13 @@ import UserContext from './UserContext';
 export default function UserProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [searchInfo, setSearchInfo] = useState({ type: '', searchValue: '' });
+  const [searchInfo, setSearchInfo] = useState({ type: '', searchValue: '', model: '' });
 
   const handleChangeEmail = ({ target: { value } }) => setEmail(value);
   const handleChangePassword = ({ target: { value } }) => setPassword(value);
-  const handleSearchInfo = (type, searchValue) => setSearchInfo({ type, searchValue });
+  const handleSearchInfo = (type, searchValue, model) => setSearchInfo(
+    { type, searchValue, model },
+  );
   const contextValue = {
     email,
     handleChangeEmail,
