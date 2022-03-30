@@ -9,8 +9,9 @@ export default function FoodProvider({ children }) {
   const [dataAllFoods, setDataAllFoods] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const { searchInfo } = useContext(UserContext);
+
   useEffect(() => {
-    const { type, searchValue } = searchInfo;
+    const { type, searchValue, model } = searchInfo;
     const fetchApi = async () => {
       if (type === 'letter' && searchValue.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
@@ -19,7 +20,7 @@ export default function FoodProvider({ children }) {
       const result = await fetchRecipesFoods(type, searchValue);
       setData(result);
     };
-    if (type.length !== 0) return fetchApi();
+    if (type.length !== 0 && model === 'foods') return fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {
