@@ -18,7 +18,6 @@ export default function DrinkProvider({ children }) {
       if (type === 'letter' && searchValue.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
-
       const result = await fetchRecipesDrinks(type, searchValue);
       setFilteredData(result);
     };
@@ -44,7 +43,6 @@ export default function DrinkProvider({ children }) {
 
   const contextValue = {
     filteredData,
-
     dataCategory,
     dataAllDrinks,
   };

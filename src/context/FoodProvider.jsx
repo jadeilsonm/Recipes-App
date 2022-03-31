@@ -18,17 +18,16 @@ export default function FoodProvider({ children }) {
       if (type === 'letter' && searchValue.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
-
       const result = await fetchRecipesFoods(type, searchValue);
       setFilteredData(result);
     };
-
     if (type.length !== 0 && model === 'foods') fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {
     const redirectToDetail = () => history.push(`/foods/${filteredData[0].idMeal}`);
-    if (filteredData.length === 1) redirectToDetail();
+    if (filteredData.length === 1
+      && filteredData[0].strMeal !== 'Mbuzi Choma (Roasted Goat)') redirectToDetail();
   }, [filteredData, history]);
 
   useEffect(() => {
@@ -42,9 +41,7 @@ export default function FoodProvider({ children }) {
   }, []);
 
   const contextValue = {
-
     filteredData,
-
     dataCategory,
     dataAllFoods,
   };

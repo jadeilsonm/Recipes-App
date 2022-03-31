@@ -12,7 +12,6 @@ function Cards(props) {
       aria-hidden="true"
       style={ { width: '100%', textAlign: 'center' } }
     >
-
       <div data-testid={ `${index}-recipe-card` }>
         <h3 data-testid={ `${index}-card-name` }>{ name }</h3>
         <img
