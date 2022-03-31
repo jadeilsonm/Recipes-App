@@ -19,6 +19,10 @@ export default function DrinkProvider({ children }) {
         return global.alert('Your search must have only 1 (one) character');
       }
       const result = await fetchRecipesDrinks(type, searchValue);
+      if (result === null) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (result === null) return setFilteredData([]);
       setFilteredData(result);
     };
 
