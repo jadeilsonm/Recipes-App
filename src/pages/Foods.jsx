@@ -18,9 +18,6 @@ export default function Foods() {
   const { handleSearchInfo } = useContext(UserContext);
   const history = useHistory();
 
-  console.log('data', filteredData);
-  console.log('arrCards', arrCards);
-
   useEffect(() => {
     if (filteredData.length !== 0) {
       setArrCard(filteredData);
