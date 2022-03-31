@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import UserContext from '../context/UserContext';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import Button from '../components/Button';
@@ -12,6 +14,11 @@ export default function ExploreFoods() {
   const newFilter = filteredData.slice(0, maxLength);
   const history = useHistory();
 
+  const { handleSearchInfo } = useContext(UserContext);
+  const location = useLocation();
+  const magicNumber = 9;
+  const path = location.pathname.slice(magicNumber);
+  
   return (
     <div>
       <Header title="Explore Foods" hasSearch={ false } />
@@ -29,7 +36,9 @@ export default function ExploreFoods() {
       <Button
         label="Surprise me!"
         dataTest="explore-surprise"
-        // onClick={ } // falta implementar a funcionalidade
+        onClick={ () => {
+          handleSearchInfo('random', '', path);
+        } }
       />
       { newFilter.length > 0 && newFilter.map((filterFood, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ filterFood.strMeal }>

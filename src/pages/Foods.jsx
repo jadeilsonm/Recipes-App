@@ -2,9 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
+import Menu from '../components/Menu';
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
-import Menu from '../components/Menu';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;
@@ -19,20 +19,27 @@ export default function Foods() {
   const history = useHistory();
 
   useEffect(() => {
-    if (filteredData.length !== 0) setArrCard(filteredData);
-    else setArrCard(dataAllFoods);
-    if (isFilterAll) setArrCard(dataAllFoods);
+    if (filteredData.length !== 0) {
+      setArrCard(filteredData);
+    } else setArrCard(dataAllFoods);
+
+    if (isFilterAll) {
+      setArrCard(dataAllFoods);
+    }
   }, [dataAllFoods, filteredData, isFilterAll]);
 
-  const clickByCategory = (value) => {
-    console.log(filter.includes(value));
-    if (filter.includes(value)) {
+  useEffect(() => {
+    if (filter.length === 0) { setArrCard(dataAllFoods); }
+    if (filter.length >= 2) {
       setFilter([]);
-      setIsFilterAll(true);
-    } else {
-      setFilter(filter.push(value));
-      handleSearchInfo('filterByCategory', value, 'foods');
     }
+  }, [filter, dataAllFoods]);
+
+  const clickByCategory = (value) => {
+    handleSearchInfo('filterByCategory', value, 'foods');
+    if (filter.includes(value)) {
+      setFilter([...filter, value]);
+    } else setFilter([value]);
   };
 
   return (
@@ -59,17 +66,24 @@ export default function Foods() {
       >
         All
       </button>
-      { arrCards.slice(0, LIMIT_MAX_CARDS).map(({ strMealThumb, strMeal, idMeal }, i) => {
-        const clickCard = () => history.push(`/foods/${idMeal}`);
-        return (<Cards
-          key={ i }
-          name={ strMeal }
-          id={ idMeal }
-          thumb={ strMealThumb }
-          clickCard={ clickCard }
-          index={ i }
-        />);
-      })}
+      <div>
+        { arrCards.slice(0, LIMIT_MAX_CARDS)
+          .map(({ strMealThumb, strMeal, idMeal }, i) => {
+            const clickCard = ({ target: { value } }) => {
+              if (!value) {
+                history.push(`/foods/${idMeal}`);
+              }
+            };
+            return (<Cards
+              key={ i }
+              name={ strMeal }
+              id={ idMeal }
+              thumb={ strMealThumb }
+              clickCard={ clickCard }
+              index={ i }
+            />);
+          })}
+      </div>
       <Menu />
     </div>
   );

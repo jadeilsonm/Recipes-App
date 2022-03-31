@@ -19,12 +19,15 @@ export default function DrinkProvider({ children }) {
       if (type === 'letter' && searchValue.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
-
       const result = await fetchRecipesDrinks(type, searchValue);
+      if (result === null) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (result === null) return setFilteredData([]);
       setFilteredData(result);
     };
 
-    if (searchValue.length !== 0 && model === 'drinks') fetchApi();
+    if (type.length !== 0 && model === 'drinks') fetchApi();
   }, [searchInfo]);
 
   useEffect(() => {
@@ -54,7 +57,6 @@ export default function DrinkProvider({ children }) {
 
   const contextValue = {
     filteredData,
-
     dataCategory,
     dataAllDrinks,
 

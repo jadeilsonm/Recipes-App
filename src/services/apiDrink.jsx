@@ -6,6 +6,7 @@ const endPoints = {
   category: 'www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
   filterByCategory: 'www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
   filterByIngredient: 'www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
+  random: 'www.thecocktaildb.com/api/json/v1/1/random.php',
 };
 
 const fetchRecipesDrinks = async (type, argument) => {

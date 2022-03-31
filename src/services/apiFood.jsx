@@ -6,6 +6,7 @@ const endPoints = {
   ingredient: 'www.themealdb.com/api/json/v1/1/list.php?i=list',
   filterByCategory: 'www.themealdb.com/api/json/v1/1/filter.php?c=',
   filterByIngredient: 'www.themealdb.com/api/json/v1/1/filter.php?i=',
+  random: 'www.themealdb.com/api/json/v1/1/random.php',
 };
 
 const fetchRecipesFoods = async (type, argument) => {
