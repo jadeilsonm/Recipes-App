@@ -61,7 +61,6 @@ export default function FoodProvider({ children }) {
     filteredData,
     dataCategory,
     dataAllFoods,
-
     dataIngredients,
   };
 
