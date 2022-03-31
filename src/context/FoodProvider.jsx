@@ -43,11 +43,12 @@ export default function FoodProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const fetchAllIngredientsFoods = async () => {
-      const responseIngredients = await fetchRecipesFoods('ingredients', '');
-      setDataIngredients(responseIngredients);
+    const fetchIngredientsFoods = async () => {
+      const maxLength = 12;
+      const responseIngredients = await fetchRecipesFoods('ingredient', '');
+      setDataIngredients(responseIngredients.slice(0, maxLength));
     };
-    fetchAllIngredientsFoods();
+    fetchIngredientsFoods();
   }, []);
 
   const contextValue = {

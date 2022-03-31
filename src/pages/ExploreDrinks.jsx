@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import Button from '../components/Button';
+import DrinkContext from '../context/DrinkContext';
 
 export default function ExploreDrinks() {
+  const { filteredData } = useContext(DrinkContext);
+  const maxLength = 12;
+
+  const newFilter = filteredData.slice(0, maxLength);
   const history = useHistory();
+
   return (
     <div>
       <Header title="Explore Drinks" hasSearch={ false } />
@@ -18,8 +25,23 @@ export default function ExploreDrinks() {
       <Button
         label="Surprise me!"
         dataTest="explore-surprise"
-        // onClick={ } // falta implementar a funcionalidade
+        // onClick={} // falta implementar a funcionalidade
       />
+      { newFilter.length > 0 && newFilter.map((filterDrink, index) => (
+        <div data-testid={ `${index}-recipe-card` } key={ filterDrink.strDrink }>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ filterDrink.strDrinkThumb }
+            alt={ filterDrink.strDrink }
+          />
+          <h4 data-testid={ `${index}-card-name` }>{ filterDrink.strDrink }</h4>
+        </div>
+      ))}
     </div>
   );
 }
+
+ExploreDrinks.propTypes = {
+  location: PropTypes.object,
+  state: PropTypes.object,
+}.isRequired;
