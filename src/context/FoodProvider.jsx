@@ -26,7 +26,7 @@ export default function FoodProvider({ children }) {
       if (result === null) return setFilteredData([]);
       setFilteredData(result);
     };
-    
+
     if (type.length !== 0 && model === 'foods') fetchApi();
   }, [searchInfo]);
 
@@ -51,7 +51,7 @@ export default function FoodProvider({ children }) {
   useEffect(() => {
     const fetchIngredientsFoods = async () => {
       const maxLength = 12;
-      const responseIngredients = await fetchRecipesFoods('ingredient', '');
+      const responseIngredients = await fetchRecipesFoods('ingredientList', '');
       setDataIngredients(responseIngredients.slice(0, maxLength));
     };
     fetchIngredientsFoods();

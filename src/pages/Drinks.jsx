@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import Menu from '../components/Menu';
 import DrinkContext from '../context/DrinkContext';
 import UserContext from '../context/UserContext';
-import Menu from '../components/Menu';
 
 const LIMIT_MAX_CARDS = 12;
 const LIMIT_MAX_CATEGORY = 5;

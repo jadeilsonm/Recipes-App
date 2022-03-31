@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useHistory, useLocation } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Header from '../components/Header';
@@ -18,7 +17,7 @@ export default function ExploreFoods() {
   const location = useLocation();
   const magicNumber = 9;
   const path = location.pathname.slice(magicNumber);
-  
+
   return (
     <div>
       <Header title="Explore Foods" hasSearch={ false } />

@@ -49,7 +49,7 @@ export default function DrinkProvider({ children }) {
   useEffect(() => {
     const fetchIngredientsDrinks = async () => {
       const maxLength = 12;
-      const responseIngredients = await fetchRecipesDrinks('ingredient', '');
+      const responseIngredients = await fetchRecipesDrinks('ingredientList', '');
       setDataIngredients(responseIngredients.slice(0, maxLength));
     };
     fetchIngredientsDrinks();
