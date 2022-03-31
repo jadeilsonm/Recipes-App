@@ -9,6 +9,7 @@ export default function FoodProvider({ children }) {
   const [filteredData, setFilteredData] = useState([]);
   const [dataAllFoods, setDataAllFoods] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
+  const [dataIngredients, setDataIngredients] = useState([]);
   const { searchInfo } = useContext(UserContext);
   const history = useHistory();
 
@@ -25,6 +26,7 @@ export default function FoodProvider({ children }) {
       if (result === null) return setFilteredData([]);
       setFilteredData(result);
     };
+
     if (type.length !== 0 && model === 'foods') fetchApi();
   }, [searchInfo]);
 
@@ -46,10 +48,21 @@ export default function FoodProvider({ children }) {
     fetchAllFoods();
   }, []);
 
+  useEffect(() => {
+    const fetchIngredientsFoods = async () => {
+      const maxLength = 12;
+      const responseIngredients = await fetchRecipesFoods('ingredientList', '');
+      setDataIngredients(responseIngredients.slice(0, maxLength));
+    };
+    fetchIngredientsFoods();
+  }, []);
+
   const contextValue = {
     filteredData,
     dataCategory,
     dataAllFoods,
+
+    dataIngredients,
   };
 
   return (

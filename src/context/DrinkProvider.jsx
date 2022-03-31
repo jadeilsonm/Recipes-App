@@ -9,6 +9,7 @@ export default function DrinkProvider({ children }) {
   const [filteredData, setFilteredData] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAllDrinks, setDataAllDrinks] = useState([]);
+  const [dataIngredients, setDataIngredients] = useState([]);
   const { searchInfo } = useContext(UserContext);
   const history = useHistory();
 
@@ -45,10 +46,21 @@ export default function DrinkProvider({ children }) {
     fetchAllDrinks();
   }, []);
 
+  useEffect(() => {
+    const fetchIngredientsDrinks = async () => {
+      const maxLength = 12;
+      const responseIngredients = await fetchRecipesDrinks('ingredientList', '');
+      setDataIngredients(responseIngredients.slice(0, maxLength));
+    };
+    fetchIngredientsDrinks();
+  }, []);
+
   const contextValue = {
     filteredData,
     dataCategory,
     dataAllDrinks,
+
+    dataIngredients,
   };
 
   return (

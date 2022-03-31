@@ -3,9 +3,11 @@ const endPoints = {
   letter: 'www.themealdb.com/api/json/v1/1/search.php?f=',
   id: 'www.themealdb.com/api/json/v1/1/lookup.php?i=',
   category: 'www.themealdb.com/api/json/v1/1/list.php?c=list',
-  ingredient: 'www.themealdb.com/api/json/v1/1/filter.php?i=',
+  ingredientList: 'www.themealdb.com/api/json/v1/1/list.php?i=list',
   filterByCategory: 'www.themealdb.com/api/json/v1/1/filter.php?c=',
+  filterByIngredient: 'www.themealdb.com/api/json/v1/1/filter.php?i=',
   random: 'www.themealdb.com/api/json/v1/1/random.php',
+  ingredient: 'www.themealdb.com/api/json/v1/1/filter.php?i=',
 };
 
 const fetchRecipesFoods = async (type, argument) => {

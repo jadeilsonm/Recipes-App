@@ -30,6 +30,7 @@ export default function Drinks() {
       setFilter([]);
     }
   }, [filter, dataAllDrinks]);
+
   const newArrCategory = [...new Set(dataCategory)];
 
   const clickByCategory = (value) => {
