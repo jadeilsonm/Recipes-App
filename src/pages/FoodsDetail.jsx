@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import CarouselRecomendation from '../components/CarouselRecomendation';
 
 export default function FoodsDetail() {
   const location = useLocation();
@@ -60,29 +61,34 @@ export default function FoodsDetail() {
       name: foodDetail.strMeal,
       image: foodDetail.strMealThumb,
     };
-    localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, recipe]));
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([...favoriteRecipes, recipe]),
+    );
     setRemove(!remove);
   };
   const removeFavorite = () => {
-    const tests = favoriteRecipes.filter((recipe) => !recipe.id.includes(foodId));
+    const tests = favoriteRecipes.filter(
+      (recipe) => !recipe.id.includes(foodId),
+    );
     localStorage.setItem('favoriteRecipes', JSON.stringify(tests));
     setRemove(!remove);
   };
 
   const handleFavorite = () => {
     const favoriteIcon = favoriteRecipes.some((recipe) => recipe.id === foodId);
-    return (<Button
-      onClick={
-        favoriteIcon ? removeFavorite : addFavorite
-      }
-      label={
-        <img
-          src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite button"
-          data-testid="favorite-btn"
-        />
-      }
-    />);
+    return (
+      <Button
+        onClick={ favoriteIcon ? removeFavorite : addFavorite }
+        label={
+          <img
+            src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite button"
+            data-testid="favorite-btn"
+          />
+        }
+      />
+    );
   };
 
   useEffect(() => {
@@ -191,13 +197,50 @@ export default function FoodsDetail() {
         src={ foodDetail.strYoutube }
       />
       <h3>Recommended</h3>
-      {drinkRecomendation.map((drink, index) => (
-        <div key={ drink.strDrink } data-testid={ `${index}-recomendation-card` }>
-          <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
-          <p>{drink.strAlcoholic}</p>
-          <h3>{drink.strDrink}</h3>
+      {drinkRecomendation.length && (
+        <CarouselRecomendation drink={ drinkRecomendation } />
+      )}
+      {/* <div
+        id="carouselExampleSlidesOnly"
+        className="carousel slide"
+        data-ride="carousel"
+      >
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img
+              src={ drinkRecomendation[0].strDrinkThumb }
+              alt={ drinkRecomendation[0].strDrink }
+              className="d-block w-100"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src={ drinkRecomendation[1].strDrinkThumb }
+              alt={ drinkRecomendation[1].strDrink }
+              className="d-block w-100"
+            />
+          </div>
         </div>
-      ))}
+        <a
+          className="carousel-control-prev"
+          href="#carouselExampleControls"
+          role="button"
+          data-slide="prev"
+        >
+          <span className="carousel-control-prev-icon" aria-hidden="true" />
+          <span className="sr-only">Anterior</span>
+        </a>
+        <a
+          className="carousel-control-next"
+          href="#carouselExampleControls"
+          role="button"
+          data-slide="next"
+        >
+          <span className="carousel-control-next-icon" aria-hidden="true" />
+          <span className="sr-only">Próximo</span>
+        </a>
+      </div> */}
+
       {handleButton()}
     </div>
   );
