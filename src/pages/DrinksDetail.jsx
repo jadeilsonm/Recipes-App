@@ -34,7 +34,6 @@ export default function DrinksDetail() {
             && item[1] !== '',
         )
         .map((ingredient) => ingredient[1]);
-      console.log(arrIngredients);
       setDrinkIngredients(arrIngredients);
     };
     const handleMeasure = () => {
@@ -45,7 +44,6 @@ export default function DrinksDetail() {
         .map((measure) => measure[1]);
       setDrinkMeasures(arrMeasures);
     };
-    console.log(Object.entries(drinkDetail));
     handleIngredient();
     handleMeasure();
   }, [drinkDetail]);
