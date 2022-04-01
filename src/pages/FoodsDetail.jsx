@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
+import Button from '../components/Button';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function FoodsDetail() {
   const location = useLocation();
+  const history = useHistory();
   const magicNumber = 7;
   const foodId = location.pathname.slice(magicNumber);
 
@@ -14,6 +17,7 @@ export default function FoodsDetail() {
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
   const [alreadyDone, setAlreadyDone] = useState([]);
   const [inProgress, setInProgress] = useState([]);
+  const [click, setClick] = useState(false);
 
   const handleButton = () => {
     if (inProgress.length !== 0) {
@@ -34,6 +38,7 @@ export default function FoodsDetail() {
           data-testid="start-recipe-btn"
           type="button"
           style={ { position: 'fixed', bottom: '0px' } }
+          onClick={ () => history.push(`/foods/${foodId}/in-progress`) }
         >
           Start Recipe
         </button>
@@ -110,7 +115,20 @@ export default function FoodsDetail() {
         src={ foodDetail.strMealThumb }
       />
       <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
-      <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
+      {click && <alert>Link copied!</alert>}
+      <Button
+        onClick={ () => {
+          clipboardCopy(`http://localhost:3000/foods/${foodId}`);
+          setClick(!click);
+        } }
+        label={
+          <img
+            src={ shareIcon }
+            alt="share button"
+            data-testid="share-btn"
+          />
+        }
+      />
       <img
         src={ whiteHeartIcon }
         alt="whiteHeartIcon"
