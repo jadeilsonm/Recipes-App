@@ -10,6 +10,7 @@ export default function FoodProvider({ children }) {
   const [dataAllFoods, setDataAllFoods] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [dataIngredients, setDataIngredients] = useState([]);
+  const [dataAreas, setDataAreas] = useState([]);
   const { searchInfo } = useContext(UserContext);
   const history = useHistory();
 
@@ -57,12 +58,22 @@ export default function FoodProvider({ children }) {
     fetchIngredientsFoods();
   }, []);
 
+  useEffect(() => {
+    const fetchAreaFoods = async () => {
+      const responseArea = await fetchRecipesFoods('areaList', '');
+      setDataAreas(responseArea);
+    };
+    fetchAreaFoods();
+  }, []);
+
   const contextValue = {
     filteredData,
     dataCategory,
     dataAllFoods,
 
     dataIngredients,
+
+    dataAreas,
   };
 
   return (
