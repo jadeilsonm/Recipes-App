@@ -1,14 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
+import Cards from '../components/Cards';
 
 export default function ENFoods() {
   const { dataAreas, filteredData, dataAllFoods } = useContext(FoodContext);
   const { handleSearchInfo } = useContext(UserContext);
   const [dataFoods, setDataFoods] = useState();
   const magicNumber = 12;
+  const history = useHistory();
 
   useEffect(() => {
     if (filteredData.length !== 0) {
@@ -36,16 +39,23 @@ export default function ENFoods() {
           </option>
         ))}
       </select>
-      {dataFoods && dataFoods.slice(0, magicNumber).map((food, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ food.strMeal }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ food.strMealThumb }
-            alt={ food.strMeal }
-          />
-          <h4 data-testid={ `${index}-card-name` }>{ food.strMeal }</h4>
-        </div>
-      ))}
+      <div>
+        {dataFoods && dataFoods.slice(0, magicNumber).map((food, index) => {
+          const clickCard = ({ target: { value } }) => {
+            if (!value) {
+              history.push(`/foods/${food.idMeal}`);
+            }
+          };
+          return (
+            <Cards
+              key={ food.strMeal }
+              name={ food.strMeal }
+              thumb={ food.strMealThumb }
+              index={ index }
+              clickCard={ clickCard }
+            />);
+        })}
+      </div>
       <Menu />
     </div>
   );
