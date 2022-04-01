@@ -1,19 +1,105 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Button from '../components/Button';
 
 export default function DrinksDetail() {
   const location = useLocation();
+  const history = useHistory();
   const magicNumber = 8;
   const drinkId = location.pathname.slice(magicNumber);
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
   const [drinkDetail, setDrinkDetail] = useState({});
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [drinkMeasures, setDrinkMeasures] = useState([]);
   const [foodRecomendation, setFoodRecomendation] = useState([]);
+  const [alreadyDone, setAlreadyDone] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
+  const [click, setClick] = useState(false);
+  const [remove, setRemove] = useState(false);
+
+  const handleButton = () => {
+    if (inProgress.length !== 0) {
+      return (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Continue Recipe
+        </button>
+      );
+    }
+
+    if (alreadyDone.length === 0) {
+      return (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+          onClick={ () => history.push(`/drinks/${drinkId}/in-progress`) }
+        >
+          Start Recipe
+        </button>
+      );
+    }
+    return false;
+  };
+
+  const addFavorite = () => {
+    const recipe = {
+      id: drinkId,
+      type: 'drink',
+      nationality: '',
+      category: drinkDetail.strCategory,
+      alcoholicOrNot: drinkDetail.strAlcoholic,
+      name: drinkDetail.strDrink,
+      image: drinkDetail.strDrinkThumb,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, recipe]));
+    setRemove(!remove);
+  };
+  const removeFavorite = () => {
+    const tests = favoriteRecipes.filter((recipe) => !recipe.id.includes(drinkId));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(tests));
+    setRemove(!remove);
+  };
+
+  const handleFavorite = () => {
+    const favoriteIcon = favoriteRecipes.some((recipe) => recipe.id === drinkId);
+    return (<Button
+      onClick={
+        favoriteIcon ? removeFavorite : addFavorite
+      }
+      label={
+        <img
+          src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite button"
+          data-testid="favorite-btn"
+        />
+      }
+    />);
+  };
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+
+    if (doneRecipes !== null) {
+      setAlreadyDone(doneRecipes.filter((recipe) => recipe.id === drinkId));
+    }
+
+    if (inProgressRecipes !== null) {
+      setInProgress(
+        Object.keys(inProgressRecipes.cocktails).filter((id) => id === drinkId),
+      );
+    }
     const fetchDrink = async () => {
       const response = await fetch(
         `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`,
@@ -70,12 +156,21 @@ export default function DrinksDetail() {
         src={ drinkDetail.strDrinkThumb }
       />
       <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
-      <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
-      <img
-        src={ whiteHeartIcon }
-        alt="whiteHeartIcon"
-        data-testid="favorite-btn"
+      {click && <alert>Link copied!</alert>}
+      <Button
+        onClick={ () => {
+          clipboardCopy(`http://localhost:3000/drinks/${drinkId}`);
+          setClick(!click);
+        } }
+        label={
+          <img
+            src={ shareIcon }
+            alt="share button"
+            data-testid="share-btn"
+          />
+        }
       />
+      {handleFavorite()}
       <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
       <h3>Ingredients</h3>
       <ul>
@@ -100,9 +195,7 @@ export default function DrinksDetail() {
           <h3 data-testid={ `${index}-recomendation-title` }>{food.strMeal}</h3>
         </div>
       ))}
-      <button data-testid="start-recipe-btn" type="button">
-        Start Recipe
-      </button>
+      {handleButton()}
     </div>
   );
 }
