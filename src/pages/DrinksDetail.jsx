@@ -12,8 +12,51 @@ export default function DrinksDetail() {
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [drinkMeasures, setDrinkMeasures] = useState([]);
   const [foodRecomendation, setFoodRecomendation] = useState([]);
+  const [alreadyDone, setAlreadyDone] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
+
+  const handleButton = () => {
+    if (inProgress.length !== 0) {
+      return (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Continue Recipe
+        </button>
+      );
+    }
+
+    if (alreadyDone.length === 0) {
+      return (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Start Recipe
+        </button>
+      );
+    }
+    return false;
+  };
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+
+    if (doneRecipes !== null) {
+      setAlreadyDone(doneRecipes.filter((recipe) => recipe.id === drinkId));
+    }
+
+    if (inProgressRecipes !== null) {
+      setInProgress(
+        Object.keys(inProgressRecipes.cocktails).filter((id) => id === drinkId),
+      );
+    }
     const fetchDrink = async () => {
       const response = await fetch(
         `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`,
@@ -102,9 +145,7 @@ export default function DrinksDetail() {
           <h3 data-testid={ `${index}-recomendation-title` }>{food.strMeal}</h3>
         </div>
       ))}
-      <button data-testid="start-recipe-btn" type="button">
-        Start Recipe
-      </button>
+      {handleButton()}
     </div>
   );
 }

@@ -12,8 +12,48 @@ export default function FoodsDetail() {
   const [foodIngredients, setFoodIngredients] = useState([]);
   const [foodMeasures, setFoodMeasures] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
+  const [alreadyDone, setAlreadyDone] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
+
+  const handleButton = () => {
+    if (inProgress.length !== 0) {
+      return (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Continue Recipe
+        </button>
+      );
+    }
+
+    if (alreadyDone.length === 0) {
+      return (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Start Recipe
+        </button>
+      );
+    }
+    return false;
+  };
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (doneRecipes !== null) {
+      setAlreadyDone(doneRecipes.filter((recipe) => recipe.id === foodId));
+    }
+
+    if (inProgressRecipes !== null) {
+      setInProgress(Object.keys(inProgressRecipes.meals).filter((id) => id === foodId));
+    }
+
     const fetchFood = async () => {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodId}`,
@@ -106,9 +146,7 @@ export default function FoodsDetail() {
           <h3>{drink.strDrink}</h3>
         </div>
       ))}
-      <button data-testid="start-recipe-btn" type="button">
-        Start Recipe
-      </button>
+      {handleButton()}
     </div>
   );
 }
