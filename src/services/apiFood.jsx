@@ -8,6 +8,8 @@ const endPoints = {
   filterByIngredient: 'www.themealdb.com/api/json/v1/1/filter.php?i=',
   random: 'www.themealdb.com/api/json/v1/1/random.php',
   ingredient: 'www.themealdb.com/api/json/v1/1/filter.php?i=',
+  areaList: 'www.themealdb.com/api/json/v1/1/list.php?a=list',
+  filteredByArea: 'www.themealdb.com/api/json/v1/1/filter.php?a=',
 };
 
 const fetchRecipesFoods = async (type, argument) => {
