@@ -4,12 +4,14 @@ import clipboardCopy from 'clipboard-copy';
 import Button from '../components/Button';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FoodsDetail() {
   const location = useLocation();
   const history = useHistory();
   const magicNumber = 7;
   const foodId = location.pathname.slice(magicNumber);
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
   const [foodDetail, setFoodDetail] = useState({});
   const [foodIngredients, setFoodIngredients] = useState([]);
@@ -18,6 +20,7 @@ export default function FoodsDetail() {
   const [alreadyDone, setAlreadyDone] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [click, setClick] = useState(false);
+  const [remove, setRemove] = useState(false);
 
   const handleButton = () => {
     if (inProgress.length !== 0) {
@@ -47,16 +50,55 @@ export default function FoodsDetail() {
     return false;
   };
 
+  const addFavorite = () => {
+    const recipe = {
+      id: foodId,
+      type: 'food',
+      nationality: foodDetail.strArea,
+      category: foodDetail.strCategory,
+      alcoholicOrNot: '',
+      name: foodDetail.strMeal,
+      image: foodDetail.strMealThumb,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, recipe]));
+    setRemove(!remove);
+  };
+  const removeFavorite = () => {
+    const tests = favoriteRecipes.filter((recipe) => !recipe.id.includes(foodId));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(tests));
+    setRemove(!remove);
+  };
+
+  const handleFavorite = () => {
+    const favoriteIcon = favoriteRecipes.some((recipe) => recipe.id === foodId);
+    return (<Button
+      onClick={
+        favoriteIcon ? removeFavorite : addFavorite
+      }
+      label={
+        <img
+          src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite button"
+          data-testid="favorite-btn"
+        />
+      }
+    />);
+  };
+
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
 
     if (doneRecipes !== null) {
       setAlreadyDone(doneRecipes.filter((recipe) => recipe.id === foodId));
     }
 
     if (inProgressRecipes !== null) {
-      setInProgress(Object.keys(inProgressRecipes.meals).filter((id) => id === foodId));
+      setInProgress(
+        Object.keys(inProgressRecipes.meals).filter((id) => id === foodId),
+      );
     }
 
     const fetchFood = async () => {
@@ -122,18 +164,10 @@ export default function FoodsDetail() {
           setClick(!click);
         } }
         label={
-          <img
-            src={ shareIcon }
-            alt="share button"
-            data-testid="share-btn"
-          />
+          <img src={ shareIcon } alt="share button" data-testid="share-btn" />
         }
       />
-      <img
-        src={ whiteHeartIcon }
-        alt="whiteHeartIcon"
-        data-testid="favorite-btn"
-      />
+      {handleFavorite()}
       <p data-testid="recipe-category">{foodDetail.strCategory}</p>
       <h3>Ingredients</h3>
       <ul>
