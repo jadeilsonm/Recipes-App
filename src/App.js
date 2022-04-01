@@ -17,6 +17,7 @@ import ENFoods from './pages/ENFoods';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import Favorites from './pages/Favorites';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
       <Route path="/profile" component={ Profile } />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route path="/favorite-recipes" component={ Favorites } />
+      <Route path="/explore/drinks/nationalities" component={ NotFound } />
     </Switch>
   );
 }

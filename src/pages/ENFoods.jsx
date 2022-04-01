@@ -24,11 +24,22 @@ export default function ENFoods() {
       <Header title="Explore Nationalities" />
       <select
         data-testid="explore-by-nationality-dropdown"
-        onChange={
-          ({ target: { value } }) => handleSearchInfo('filteredByArea', value, 'foods')
-        }
+        onChange={ ({ target: { value } }) => {
+          if (value === 'All') {
+            setDataFoods(dataAllFoods);
+          } else {
+            handleSearchInfo('filteredByArea', value, 'foods');
+          }
+        } }
         name="area"
       >
+        <option
+          data-testid="All-option"
+          key="All"
+          value="All"
+        >
+          All
+        </option>
         {dataAreas.map(({ strArea }) => (
           <option
             data-testid={ `${strArea}-option` }
@@ -39,6 +50,7 @@ export default function ENFoods() {
           </option>
         ))}
       </select>
+
       <div>
         {dataFoods && dataFoods.slice(0, magicNumber).map((food, index) => {
           const clickCard = ({ target: { value } }) => {
