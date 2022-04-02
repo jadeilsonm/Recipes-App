@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Button from '../components/Button';
+import ShareButton from '../components/ShareButton';
 
 export default function Favorites() {
   const [filter, setFilter] = useState('');
-  const [click, setClick] = useState(false);
   const [remove, setRemove] = useState(false);
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -38,7 +36,6 @@ export default function Favorites() {
         onClick={ () => setFilter('drink') }
         label="Drinks"
       />
-      {click && <alert>Link copied!</alert>}
       {favoriteRecipes
         && filters().map((recipe, index) => (
           <div key={ index } style={ { width: '100%', border: '1px solid black' } }>
@@ -54,20 +51,10 @@ export default function Favorites() {
             <h4 data-testid={ `${index}-horizontal-top-text` }>
               {`${recipe.nationality} ${recipe.alcoholicOrNot} - ${recipe.category}`}
             </h4>
-            <Button
-              onClick={ () => {
-                clipboardCopy(
-                  `http://localhost:3000/${recipe.type}s/${recipe.id}`,
-                );
-                setClick(!click);
-              } }
-              label={
-                <img
-                  src={ shareIcon }
-                  alt={ index }
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />
-              }
+            <ShareButton
+              type={ recipe.type }
+              id={ recipe.id }
+              dataTest={ `${index}-horizontal-share-btn` }
             />
             <Button
               onClick={ () => {
