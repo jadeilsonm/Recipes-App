@@ -7,6 +7,16 @@ export default function Login() {
   const { email, handleChangeEmail,
     password, handleChangePassword,
   } = useContext(UserContext);
+  const inProgressRecipes = {
+    meals: {
+      52771: [],
+      52772: [],
+      52773: [],
+    },
+    cocktails: {
+      178319: [],
+    },
+  };
 
   const history = useHistory();
   const reditectTo = () => history.push('/foods');
@@ -34,6 +44,7 @@ export default function Login() {
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     reditectTo();
   };
 

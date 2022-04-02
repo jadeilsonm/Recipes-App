@@ -14,8 +14,7 @@ export default function StartRecipe({ id, type }) {
   const done = doneRecipes.some((recipe) => recipe.id === id);
   const progressRecipes = Object.keys(
     inProgressRecipes[type === 'food' ? meals : cocktails],
-  ).some((recipe) => recipe.id === id);
-
+  ).some((recipe) => recipe === id);
   return (
     <div>
       {!done && (
