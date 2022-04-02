@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import FavButton from '../components/FavButton';
 import BootstrapCarousel from '../components/BootstrapCarousel';
 import ShareButton from '../components/ShareButton';
 import StartRecipe from '../components/StartRecipe';
+import DrinkContext from '../context/DrinkContext';
 
 export default function FoodsDetail() {
   const [foodDetail, setFoodDetail] = useState({});
   const [foodIngredients, setFoodIngredients] = useState([]);
   const [foodMeasures, setFoodMeasures] = useState([]);
-  const [drinkRecomendation, setDrinkRecomendation] = useState([]);
+  const { dataAllDrinks } = useContext(DrinkContext);
 
   const location = useLocation();
   const magicNumber = 7;
+  const INDEX_LIMIT = 6;
   const foodId = location.pathname.slice(magicNumber);
   const thisRecipe = {
     id: foodId,
@@ -59,19 +61,6 @@ export default function FoodsDetail() {
     handleMeasure();
   }, [foodDetail]);
 
-  useEffect(() => {
-    const fetchDrink = async () => {
-      const response = await fetch(
-        'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-      );
-      const data = await response.json();
-      const INDEX_LIMIT = 0;
-      const INDEX_LIMIT2 = 6;
-      setDrinkRecomendation(data.drinks.slice(INDEX_LIMIT, INDEX_LIMIT2));
-    };
-    fetchDrink();
-  }, []);
-
   return (
     <div style={ { width: '100%' } }>
       <img
@@ -106,11 +95,10 @@ export default function FoodsDetail() {
         src={ foodDetail.strYoutube }
       />
       <h3>Recommended</h3>
-      { drinkRecomendation.length
-        && <BootstrapCarousel
-          type="Drink"
-          items={ drinkRecomendation }
-        /> }
+      <BootstrapCarousel
+        type="Drink"
+        items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
+      />
       <StartRecipe id={ foodId } type="food" />
     </div>
   );
