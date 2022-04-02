@@ -1,112 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
-import Button from '../components/Button';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { useLocation } from 'react-router-dom';
+import FavButton from '../components/FavButton';
 import BootstrapCarousel from '../components/BootstrapCarousel';
+import ShareButton from '../components/ShareButton';
+import StartRecipe from '../components/StartRecipe';
 
 export default function FoodsDetail() {
-  const location = useLocation();
-  const history = useHistory();
-  const magicNumber = 7;
-  const foodId = location.pathname.slice(magicNumber);
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-
   const [foodDetail, setFoodDetail] = useState({});
   const [foodIngredients, setFoodIngredients] = useState([]);
   const [foodMeasures, setFoodMeasures] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
-  const [alreadyDone, setAlreadyDone] = useState([]);
-  const [inProgress, setInProgress] = useState([]);
-  const [click, setClick] = useState(false);
-  const [remove, setRemove] = useState(false);
 
-  const handleButton = () => {
-    if (inProgress.length !== 0) {
-      return (
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          style={ { position: 'fixed', bottom: '0px' } }
-        >
-          Continue Recipe
-        </button>
-      );
-    }
-
-    if (alreadyDone.length === 0) {
-      return (
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          style={ { position: 'fixed', bottom: '0px' } }
-          onClick={ () => history.push(`/foods/${foodId}/in-progress`) }
-        >
-          Start Recipe
-        </button>
-      );
-    }
-    return false;
-  };
-
-  const addFavorite = () => {
-    const recipe = {
-      id: foodId,
-      type: 'food',
-      nationality: foodDetail.strArea,
-      category: foodDetail.strCategory,
-      alcoholicOrNot: '',
-      name: foodDetail.strMeal,
-      image: foodDetail.strMealThumb,
-    };
-    localStorage.setItem(
-      'favoriteRecipes',
-      JSON.stringify([...favoriteRecipes, recipe]),
-    );
-    setRemove(!remove);
-  };
-  const removeFavorite = () => {
-    const tests = favoriteRecipes.filter(
-      (recipe) => !recipe.id.includes(foodId),
-    );
-    localStorage.setItem('favoriteRecipes', JSON.stringify(tests));
-    setRemove(!remove);
-  };
-
-  const handleFavorite = () => {
-    const favoriteIcon = favoriteRecipes.some((recipe) => recipe.id === foodId);
-    return (
-      <Button
-        onClick={ favoriteIcon ? removeFavorite : addFavorite }
-        label={
-          <img
-            src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
-            alt="favorite button"
-            data-testid="favorite-btn"
-          />
-        }
-      />
-    );
+  const location = useLocation();
+  const magicNumber = 7;
+  const foodId = location.pathname.slice(magicNumber);
+  const thisRecipe = {
+    id: foodId,
+    type: 'food',
+    nationality: foodDetail.strArea,
+    category: foodDetail.strCategory,
+    alcoholicOrNot: '',
+    name: foodDetail.strMeal,
+    image: foodDetail.strMealThumb,
   };
 
   useEffect(() => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const inProgressRecipes = JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    );
-
-    if (doneRecipes !== null) {
-      setAlreadyDone(doneRecipes.filter((recipe) => recipe.id === foodId));
-    }
-
-    if (inProgressRecipes !== null) {
-      setInProgress(
-        Object.keys(inProgressRecipes.meals).filter((id) => id === foodId),
-      );
-    }
-
     const fetchFood = async () => {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodId}`,
@@ -163,17 +81,8 @@ export default function FoodsDetail() {
         src={ foodDetail.strMealThumb }
       />
       <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
-      {click && <alert>Link copied!</alert>}
-      <Button
-        onClick={ () => {
-          clipboardCopy(`http://localhost:3000/foods/${foodId}`);
-          setClick(!click);
-        } }
-        label={
-          <img src={ shareIcon } alt="share button" data-testid="share-btn" />
-        }
-      />
-      {handleFavorite()}
+      <ShareButton type="food" id={ foodId } dataTest="share-btn" />
+      <FavButton id={ foodId } recipeDetail={ thisRecipe } dataTest="favorite-btn" />
       <p data-testid="recipe-category">{foodDetail.strCategory}</p>
       <h3>Ingredients</h3>
       <ul>
@@ -202,7 +111,7 @@ export default function FoodsDetail() {
           type="Drink"
           items={ drinkRecomendation }
         /> }
-      {handleButton()}
+      <StartRecipe id={ foodId } type="food" />
     </div>
   );
 }
