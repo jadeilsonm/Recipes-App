@@ -5,6 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Button from '../components/Button';
+import BootstrapCarousel from '../components/BootstrapCarousel';
 
 export default function DrinksDetail() {
   const location = useLocation();
@@ -142,7 +143,7 @@ export default function DrinksDetail() {
       const data = await response.json();
       const INDEX_LIMIT = 0;
       const INDEX_LIMIT2 = 6;
-      setFoodRecomendation(data.meals.splice(INDEX_LIMIT, INDEX_LIMIT2));
+      setFoodRecomendation(data.meals.slice(INDEX_LIMIT, INDEX_LIMIT2));
     };
     fetchFood();
   }, []);
@@ -188,13 +189,11 @@ export default function DrinksDetail() {
       <h3>Instructions</h3>
       <p data-testid="instructions">{drinkDetail.strInstructions}</p>
       <h3>Recommended</h3>
-      {foodRecomendation.map((food, index) => (
-        <div key={ food.strMeal } data-testid={ `${index}-recomendation-card` }>
-          <img src={ food.strMealThumb } alt={ food.strMeal } />
-          <p>{food.strCategory}</p>
-          <h3 data-testid={ `${index}-recomendation-title` }>{food.strMeal}</h3>
-        </div>
-      ))}
+      { foodRecomendation.length
+        && <BootstrapCarousel
+          type="Meal"
+          items={ foodRecomendation }
+        /> }
       {handleButton()}
     </div>
   );

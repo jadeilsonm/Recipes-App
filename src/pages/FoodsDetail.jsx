@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import CarouselRecomendation from '../components/CarouselRecomendation';
+import BootstrapCarousel from '../components/BootstrapCarousel';
 
 export default function FoodsDetail() {
   const location = useLocation();
@@ -149,7 +149,7 @@ export default function FoodsDetail() {
       const data = await response.json();
       const INDEX_LIMIT = 0;
       const INDEX_LIMIT2 = 6;
-      setDrinkRecomendation(data.drinks.splice(INDEX_LIMIT, INDEX_LIMIT2));
+      setDrinkRecomendation(data.drinks.slice(INDEX_LIMIT, INDEX_LIMIT2));
     };
     fetchDrink();
   }, []);
@@ -197,17 +197,11 @@ export default function FoodsDetail() {
         src={ foodDetail.strYoutube }
       />
       <h3>Recommended</h3>
-      {drinkRecomendation.map((drink, index) => (
-        <div key={ drink.strDrink } data-testid={ `${index}-recomendation-card` }>
-          <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
-          <p>{drink.strAlcoholic}</p>
-          <h3>{drink.strDrink}</h3>
-        </div>
-      ))}
-      {/* {drinkRecomendation.length && (
-        <CarouselRecomendation drink={ drinkRecomendation } />
-      )} */}
-
+      { drinkRecomendation.length
+        && <BootstrapCarousel
+          type="Drink"
+          items={ drinkRecomendation }
+        /> }
       {handleButton()}
     </div>
   );
