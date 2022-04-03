@@ -13,9 +13,9 @@ export default function FoodsDetail() {
   const { dataAllDrinks } = useContext(DrinkContext);
 
   const location = useLocation();
-  const magicNumber = 7;
   const INDEX_LIMIT = 6;
-  const foodId = location.pathname.slice(magicNumber);
+  const isInProgress = location.pathname.includes('in-progress');
+  const foodId = location.pathname.replace(/[^0-9]/g, '');
   const thisRecipe = {
     id: foodId,
     type: 'food',
@@ -52,7 +52,9 @@ export default function FoodsDetail() {
     const handleMeasure = () => {
       const arrMeasures = Object.entries(foodDetail)
         .filter(
-          (item) => item[0].includes('strMeasure') && item[1] !== '' && item[1] !== null,
+          (item) => item[0].includes('strMeasure')
+            && item[1] !== ''
+            && item[1] !== null,
         )
         .map((measure) => measure[1]);
       setFoodMeasures(arrMeasures);
@@ -71,14 +73,20 @@ export default function FoodsDetail() {
       />
       <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
       <ShareButton type="food" id={ foodId } dataTest="share-btn" />
-      <FavButton id={ foodId } recipeDetail={ thisRecipe } dataTest="favorite-btn" />
+      <FavButton
+        id={ foodId }
+        recipeDetail={ thisRecipe }
+        dataTest="favorite-btn"
+      />
       <p data-testid="recipe-category">{foodDetail.strCategory}</p>
       <h3>Ingredients</h3>
       <ul>
         {foodIngredients.map((ingredient, index) => (
           <li
             key={ ingredient }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            data-testid={ isInProgress
+              ? `${index}-ingredient-step`
+              : `${index}-ingredient-name-and-measure` }
           >
             {ingredient}
             -
@@ -86,6 +94,23 @@ export default function FoodsDetail() {
           </li>
         ))}
       </ul>
+      <div>
+        { foodIngredients.map((ingredient, index) => (
+          <label key={ index } htmlFor={ ingredient } style={ { display: 'flex' } }>
+            {ingredient}
+            -
+            {foodMeasures[index]}
+            <input
+              type="checkbox"
+              name={ ingredient }
+              id={ ingredient }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            />
+          </label>
+        ))}
+
+      </div>
+
       <h3>Instructions</h3>
       <p data-testid="instructions">{foodDetail.strInstructions}</p>
       <h3>Video</h3>
@@ -100,6 +125,7 @@ export default function FoodsDetail() {
         items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
       />
       <StartRecipe id={ foodId } type="food" />
+
     </div>
   );
 }
