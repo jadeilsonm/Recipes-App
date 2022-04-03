@@ -22,7 +22,6 @@ export default function FoodsProgress() {
   const INDEX_LIMIT = 6;
   const foodId = location.pathname.replace(/[^0-9]/g, '');
   const [ingredientList, setIngredientList] = useState(obj.meals[foodId] || []);
-  // setIngredientList(obj.meals[foodId]);
   const thisRecipe = {
     id: foodId,
     type: 'food',
@@ -34,7 +33,6 @@ export default function FoodsProgress() {
   };
 
   useEffect(() => {
-    // setIngredientList(obj.meals[foodId]);
     const fetchFood = async () => {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodId}`,
@@ -46,7 +44,6 @@ export default function FoodsProgress() {
   }, [foodId]);
 
   useEffect(() => {
-    // setIngredientList(obj.meals[foodId]);
     const handleIngredient = () => {
       const arrIngredients = Object.entries(foodDetail)
         .filter(
@@ -72,7 +69,6 @@ export default function FoodsProgress() {
   }, [foodDetail]);
 
   useEffect(() => {
-    // setIngredientList(obj.meals[foodId]);
     if (ingredientList.length) {
       const { meals } = obj;
       meals[foodId] = ingredientList;
