@@ -13,9 +13,8 @@ export default function DrinksDetail() {
   const { dataAllFoods } = useContext(FoodContext);
 
   const location = useLocation();
-  const magicNumber = 8;
   const INDEX_LIMIT = 6;
-  const drinkId = location.pathname.slice(magicNumber);
+  const drinkId = location.pathname.replace(/[^0-9]/g, '');
   const thisRecipe = {
     id: drinkId,
     type: 'drink',
