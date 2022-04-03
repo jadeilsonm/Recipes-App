@@ -61,7 +61,7 @@ export default function FoodProvider({ children }) {
   useEffect(() => {
     const fetchAreaFoods = async () => {
       const responseArea = await fetchRecipesFoods('areaList', '');
-      setDataAreas(responseArea);
+      setDataAreas([...responseArea, { strArea: 'All' }]);
     };
     fetchAreaFoods();
   }, []);

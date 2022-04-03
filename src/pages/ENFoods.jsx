@@ -33,14 +33,7 @@ export default function ENFoods() {
         } }
         name="area"
       >
-        <option
-          data-testid="All-option"
-          key="All"
-          value="All"
-        >
-          All
-        </option>
-        {dataAreas.map(({ strArea }) => (
+        {dataAreas.length && dataAreas.map(({ strArea }) => (
           <option
             data-testid={ `${strArea}-option` }
             key={ strArea }
