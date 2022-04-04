@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { Button, Conteiner, ImgDetail, ContainerDetails } from './style';
 import BootstrapCarousel from '../components/BootstrapCarousel';
 import FavButton from '../components/FavButton';
 import ShareButton from '../components/ShareButton';
@@ -84,56 +85,58 @@ export default function DrinksProgress() {
   });
 
   return (
-    <div style={ { width: '100%' } }>
-      <img
-        style={ { width: '100%' } }
-        data-testid="recipe-photo"
-        alt="drink"
-        src={ drinkDetail.strDrinkThumb }
-      />
-      <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
-      <ShareButton type="drink" id={ drinkId } dataTest="share-btn" />
-      <FavButton id={ drinkId } recipeDetail={ thisRecipe } dataTest="favorite-btn" />
-      <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
-      <h3>Ingredients</h3>
-      <div>
-        {drinkIngredients.map((ingredient, index) => (
-          <label
-            htmlFor={ ingredient }
-            key={ ingredient }
-            style={ { display: 'flex', alignItems: 'center' } }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-              name={ ingredient }
-              checked={ ingredientList.includes(ingredient) }
-              id={ ingredient }
-              onClick={ () => checkedIngredients(ingredient) }
-            />
-            {ingredient}
-            -
-            {drinkMeasures[index]}
-          </label>
-        ))}
-      </div>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{drinkDetail.strInstructions}</p>
-      <h3>Recommended</h3>
-      <BootstrapCarousel
-        type="Meal"
-        items={ dataAllFoods.slice(0, INDEX_LIMIT) }
-      />
+    <Conteiner>
+      <ContainerDetails>
+        <ImgDetail
+          style={ { width: '100%' } }
+          data-testid="recipe-photo"
+          alt="drink"
+          src={ drinkDetail.strDrinkThumb }
+        />
+        <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
+        <ShareButton type="drink" id={ drinkId } dataTest="share-btn" />
+        <FavButton id={ drinkId } recipeDetail={ thisRecipe } dataTest="favorite-btn" />
+        <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
+        <h3>Ingredients</h3>
+        <div>
+          {drinkIngredients.map((ingredient, index) => (
+            <label
+              htmlFor={ ingredient }
+              key={ ingredient }
+              style={ { display: 'flex', alignItems: 'center' } }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                name={ ingredient }
+                checked={ ingredientList.includes(ingredient) }
+                id={ ingredient }
+                onClick={ () => checkedIngredients(ingredient) }
+              />
+              {ingredient}
+              -
+              {drinkMeasures[index]}
+            </label>
+          ))}
+        </div>
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{drinkDetail.strInstructions}</p>
+        <h3>Recommended</h3>
+        <BootstrapCarousel
+          type="Meal"
+          items={ dataAllFoods.slice(0, INDEX_LIMIT) }
+        />
 
-      <button
-        type="button"
-        onClick={ clickByFinish }
-        data-testid="finish-recipe-btn"
-        disabled={ ingredientList.length !== drinkIngredients.length }
-      >
-        Finish Recipes
+        <Button
+          type="button"
+          onClick={ clickByFinish }
+          data-testid="finish-recipe-btn"
+          disabled={ ingredientList.length !== drinkIngredients.length }
+        >
+          Finish Recipes
 
-      </button>
-    </div>
+        </Button>
+      </ContainerDetails>
+    </Conteiner>
   );
 }

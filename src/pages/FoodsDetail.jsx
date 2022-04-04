@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import FavButton from '../components/FavButton';
 import BootstrapCarousel from '../components/BootstrapCarousel';
+import { Conteiner, ImgDetail, ContainerDetails } from './style';
 import ShareButton from '../components/ShareButton';
 import StartRecipe from '../components/StartRecipe';
 import DrinkContext from '../context/DrinkContext';
@@ -25,6 +26,8 @@ export default function FoodsDetail() {
     name: foodDetail.strMeal,
     image: foodDetail.strMealThumb,
   };
+
+  const pathVideo = foodDetail.strYoutube;
 
   useEffect(() => {
     const fetchFood = async () => {
@@ -64,68 +67,58 @@ export default function FoodsDetail() {
   }, [foodDetail]);
 
   return (
-    <div style={ { width: '100%' } }>
-      <img
-        style={ { width: '100%' } }
-        data-testid="recipe-photo"
-        alt="food"
-        src={ foodDetail.strMealThumb }
-      />
-      <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
-      <ShareButton type="food" id={ foodId } dataTest="share-btn" />
-      <FavButton
-        id={ foodId }
-        recipeDetail={ thisRecipe }
-        dataTest="favorite-btn"
-      />
-      <p data-testid="recipe-category">{foodDetail.strCategory}</p>
-      <h3>Ingredients</h3>
-      <ul>
-        {foodIngredients.map((ingredient, index) => (
-          <li
-            key={ ingredient }
-            data-testid={ isInProgress
-              ? `${index}-ingredient-step`
-              : `${index}-ingredient-name-and-measure` }
-          >
-            {ingredient}
-            -
-            {foodMeasures[index]}
-          </li>
-        ))}
-      </ul>
-      <div>
-        { foodIngredients.map((ingredient, index) => (
-          <label key={ index } htmlFor={ ingredient } style={ { display: 'flex' } }>
-            {ingredient}
-            -
-            {foodMeasures[index]}
-            <input
-              type="checkbox"
-              name={ ingredient }
-              id={ ingredient }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            />
-          </label>
-        ))}
+    <Conteiner>
+      <ContainerDetails>
+        <ImgDetail
+          data-testid="recipe-photo"
+          alt="food"
+          src={ foodDetail.strMealThumb }
+        />
+        <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
+        <p data-testid="recipe-category">{foodDetail.strCategory}</p>
+        <ShareButton type="food" id={ foodId } dataTest="share-btn" />
+        <FavButton
+          id={ foodId }
+          recipeDetail={ thisRecipe }
+          dataTest="favorite-btn"
+        />
+        <h3>Ingredients</h3>
+        <ul>
+          {foodIngredients.map((ingredient, index) => (
+            <li
+              key={ ingredient }
+              data-testid={ isInProgress
+                ? `${index}-ingredient-step`
+                : `${index}-ingredient-name-and-measure` }
+            >
+              {ingredient}
+              -
+              {foodMeasures[index]}
+            </li>
+          ))}
+        </ul>
+        <h3>Instructions</h3>
+        <p
+          data-testid="instructions"
+          className="paragraph"
+        >
+          {foodDetail.strInstructions}
 
-      </div>
+        </p>
+        <h3>Video</h3>
+        <iframe
+          data-testid="video"
+          title={ foodDetail.strMeal }
+          src={ pathVideo ? pathVideo.replace('watch?v=', 'embed/') : '' }
+        />
+        <StartRecipe id={ foodId } type="food" />
+        <h3>Recommended</h3>
+        <BootstrapCarousel
+          type="Drink"
+          items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
+        />
 
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{foodDetail.strInstructions}</p>
-      <h3>Video</h3>
-      <iframe
-        data-testid="video"
-        title={ foodDetail.strMeal }
-        src={ foodDetail.strYoutube }
-      />
-      <h3>Recommended</h3>
-      <BootstrapCarousel
-        type="Drink"
-        items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
-      />
-      <StartRecipe id={ foodId } type="food" />
-
-    </div>
+      </ContainerDetails>
+    </Conteiner>
   );
 }

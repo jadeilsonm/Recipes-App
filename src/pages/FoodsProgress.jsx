@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { Button, Conteiner, ImgDetail, ContainerDetails } from './style';
 import BootstrapCarousel from '../components/BootstrapCarousel';
 import FavButton from '../components/FavButton';
 import ShareButton from '../components/ShareButton';
@@ -31,6 +32,8 @@ export default function FoodsProgress() {
     name: foodDetail.strMeal,
     image: foodDetail.strMealThumb,
   };
+
+  const pathVideo = foodDetail.strYoutube;
 
   useEffect(() => {
     const fetchFood = async () => {
@@ -85,70 +88,79 @@ export default function FoodsProgress() {
   };
 
   return (
-    <div style={ { width: '100%' } }>
-      <img
-        style={ { width: '100%' } }
-        data-testid="recipe-photo"
-        alt="food"
-        src={ foodDetail.strMealThumb }
-      />
-      <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
-      <ShareButton type="food" id={ foodId } dataTest="share-btn" />
-      <FavButton
-        id={ foodId }
-        recipeDetail={ thisRecipe }
-        dataTest="favorite-btn"
-      />
-      <p data-testid="recipe-category">{foodDetail.strCategory}</p>
-      <h3>Ingredients</h3>
-      <div>
-        { foodIngredients.map((ingredient, index) => (
-          <label
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            htmlFor={ ingredient }
-            style={ ingredientList.includes(ingredient) ? { display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'line-through' } : { display: 'flex',
-              alignItems: 'center' } }
-          >
-            <input
-              type="checkbox"
-              name={ ingredient }
-              checked={ ingredientList.includes(ingredient) }
-              id={ ingredient }
-              onClick={ () => checkedIngredients(ingredient) }
-            />
-            {ingredient}
-            -
-            {foodMeasures[index]}
-          </label>
-        ))}
+    <Conteiner>
+      <ContainerDetails>
 
-      </div>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{foodDetail.strInstructions}</p>
-      <h3>Video</h3>
-      <iframe
-        data-testid="video"
-        title={ foodDetail.strMeal }
-        src={ foodDetail.strYoutube }
-      />
-      <h3>Recommended</h3>
-      <BootstrapCarousel
-        type="Drink"
-        items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
-      />
+        <ImgDetail
+          style={ { width: '100%' } }
+          data-testid="recipe-photo"
+          alt="food"
+          src={ foodDetail.strMealThumb }
+        />
+        <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
+        <p data-testid="recipe-category">{foodDetail.strCategory}</p>
+        <ShareButton type="food" id={ foodId } dataTest="share-btn" />
+        <FavButton
+          id={ foodId }
+          recipeDetail={ thisRecipe }
+          dataTest="favorite-btn"
+        />
+        <h3>Ingredients</h3>
+        <div>
+          { foodIngredients.map((ingredient, index) => (
+            <label
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+              htmlFor={ ingredient }
+              style={ ingredientList.includes(ingredient) ? { display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'line-through' } : { display: 'flex',
+                alignItems: 'center' } }
+            >
+              <input
+                type="checkbox"
+                name={ ingredient }
+                checked={ ingredientList.includes(ingredient) }
+                id={ ingredient }
+                onClick={ () => checkedIngredients(ingredient) }
+              />
+              {ingredient}
+              -
+              {foodMeasures[index]}
+            </label>
+          ))}
 
-      <button
-        type="button"
-        onClick={ clickByFinish }
-        data-testid="finish-recipe-btn"
-        disabled={ ingredientList.length !== foodIngredients.length }
-      >
-        Finish Recipes
+        </div>
+        <h3>Instructions</h3>
+        <p
+          className="paragraph"
+          data-testid="instructions"
+        >
+          {foodDetail.strInstructions}
 
-      </button>
-    </div>
+        </p>
+        <h3>Video</h3>
+        <iframe
+          data-testid="video"
+          title={ foodDetail.strMeal }
+          src={ pathVideo ? pathVideo.replace('watch?v=', 'embed/') : '' }
+        />
+
+        <Button
+          type="button"
+          onClick={ clickByFinish }
+          data-testid="finish-recipe-btn"
+          disabled={ ingredientList.length !== foodIngredients.length }
+        >
+          Finish Recipes
+
+        </Button>
+        <h3>Recommended</h3>
+        <BootstrapCarousel
+          type="Drink"
+          items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
+        />
+      </ContainerDetails>
+    </Conteiner>
   );
 }
