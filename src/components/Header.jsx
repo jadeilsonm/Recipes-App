@@ -22,7 +22,7 @@ const Conteiner = styled.div`
     border: none;
     padding: 5px;
     margin: 3px;
-    color: #4F5054;
+    color: #AABAC1;
     font-size: 24px;
   }
   & .icon:hover, .icon:active  {

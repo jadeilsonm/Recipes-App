@@ -19,6 +19,7 @@ const Fav = styled.button`
   border: none;
   padding: 5px;
   margin-left: 5px;
+  margin-top: 11px;
   color: #D27842;
   font-size: 24px;
   margin-right: 5px;
@@ -41,7 +42,6 @@ export default function Favorites() {
       <Header title="Favorite Recipes" hasSearch={ false } />
       <Menu />
       <ConteinerTabs>
-
         <div
           onClick={ () => setFilter('') }
           role="button"

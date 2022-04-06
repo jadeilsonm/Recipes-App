@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Button, Conteiner, ImgDetail, ContainerDetails } from './style';
+import { Button, TitleDetail, ImgDetail, ContainerDetails } from './style';
 import BootstrapCarousel from '../components/BootstrapCarousel';
 import FavButton from '../components/FavButton';
 import ShareButton from '../components/ShareButton';
@@ -93,23 +93,29 @@ export default function FoodsProgress() {
   };
 
   return (
-    <Conteiner>
-      <ContainerDetails>
-
-        <ImgDetail
-          style={ { width: '100%' } }
+    <>
+      <ImgDetail>
+        <TitleDetail>
+          <div className="texts">
+            <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
+            <p data-testid="recipe-category">{foodDetail.strCategory}</p>
+          </div>
+          <div className="buttons">
+            <FavButton
+              id={ foodId }
+              recipeDetail={ thisRecipe }
+              dataTest="favorite-btn"
+            />
+            <ShareButton type="food" id={ foodId } dataTest="share-btn" />
+          </div>
+        </TitleDetail>
+        <img
           data-testid="recipe-photo"
           alt="food"
           src={ foodDetail.strMealThumb }
         />
-        <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
-        <p data-testid="recipe-category">{foodDetail.strCategory}</p>
-        <ShareButton type="food" id={ foodId } dataTest="share-btn" />
-        <FavButton
-          id={ foodId }
-          recipeDetail={ thisRecipe }
-          dataTest="favorite-btn"
-        />
+      </ImgDetail>
+      <ContainerDetails>
         <h3>Ingredients</h3>
         <div>
           { foodIngredients.map((ingredient, index) => (
@@ -165,6 +171,6 @@ export default function FoodsProgress() {
           items={ dataAllDrinks.slice(0, INDEX_LIMIT) }
         />
       </ContainerDetails>
-    </Conteiner>
+    </>
   );
 }

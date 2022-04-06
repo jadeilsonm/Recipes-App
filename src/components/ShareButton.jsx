@@ -18,7 +18,8 @@ const Share = styled.button`
   border: none;
   padding: 5px;
   margin-left: 5px;
-  color: #4F5054;
+  margin-top: 11px;
+  color: #AABAC1;
   font-size: 24px;
   & :hover, :active  {
     color: #D27842;

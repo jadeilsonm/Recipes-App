@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import FavButton from '../components/FavButton';
 import BootstrapCarousel from '../components/BootstrapCarousel';
-import { TitleDetail, Conteiner, ImgDetail, ContainerDetails } from './style';
+import { TitleDetail, ImgDetail, ContainerDetails } from './style';
 import ShareButton from '../components/ShareButton';
 import StartRecipe from '../components/StartRecipe';
 import DrinkContext from '../context/DrinkContext';
@@ -67,23 +67,28 @@ export default function FoodsDetail() {
   }, [foodDetail]);
 
   return (
-    <Conteiner>
-      <TitleDetail />
-      <ImgDetail
-        data-testid="recipe-photo"
-        alt="food"
-        src={ foodDetail.strMealThumb }
-      />
-      <div>
-        <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
-        <p data-testid="recipe-category">{foodDetail.strCategory}</p>
-      </div>
-      <ShareButton type="food" id={ foodId } dataTest="share-btn" />
-      <FavButton
-        id={ foodId }
-        recipeDetail={ thisRecipe }
-        dataTest="favorite-btn"
-      />
+    <>
+      <ImgDetail>
+        <TitleDetail>
+          <div className="texts">
+            <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
+            <p data-testid="recipe-category">{foodDetail.strCategory}</p>
+          </div>
+          <div className="buttons">
+            <FavButton
+              id={ foodId }
+              recipeDetail={ thisRecipe }
+              dataTest="favorite-btn"
+            />
+            <ShareButton type="food" id={ foodId } dataTest="share-btn" />
+          </div>
+        </TitleDetail>
+        <img
+          data-testid="recipe-photo"
+          alt="food"
+          src={ foodDetail.strMealThumb }
+        />
+      </ImgDetail>
       <ContainerDetails>
         <h3>Ingredients</h3>
         <ul>
@@ -122,6 +127,6 @@ export default function FoodsDetail() {
         />
 
       </ContainerDetails>
-    </Conteiner>
+    </>
   );
 }

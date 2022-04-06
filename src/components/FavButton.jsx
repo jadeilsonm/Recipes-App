@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Lottie from 'react-lottie';
 import animationData from '../images/twitter-heart.json';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const Fav = styled.button`
   background-color: transparent;
@@ -14,7 +12,8 @@ const Fav = styled.button`
   justify-content: center;
   height: 50px;
   width: 50px;
-  /* margin: 0 auto; */
+  /* padding: 2px; */
+  margin: 0 10px;
   .icon {
     pointer-events: none;
   }
@@ -69,8 +68,8 @@ export default function FavButton({ id, recipeDetail }) {
       <div className="icon">
         <Lottie
           options={ defaultOptions }
-          height={ 300 }
-          width={ 300 }
+          height={ 250 }
+          width={ 250 }
           isStopped={ animationState.isStopped }
           isPaused={ animationState.isPaused }
         />

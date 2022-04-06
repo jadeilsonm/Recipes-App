@@ -6,7 +6,7 @@ const Conteiner = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  background-color: #0C1015;
+  background-color: rgba(12,15,20,0.95);
   position: fixed;
   bottom: 0;
   
@@ -15,7 +15,7 @@ const Conteiner = styled.div`
     border: none;
     padding: 5px;
     margin: 3px;
-    color: #4F5054;
+    color: #AABAC1;
     font-size: 24px;
   }
   & button:hover, button:active  {

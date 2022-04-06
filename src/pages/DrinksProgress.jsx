@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Button, Conteiner, ImgDetail, ContainerDetails } from './style';
+import { Button, TitleDetail, ImgDetail, ContainerDetails } from './style';
 import BootstrapCarousel from '../components/BootstrapCarousel';
 import FavButton from '../components/FavButton';
 import ShareButton from '../components/ShareButton';
@@ -95,25 +95,39 @@ export default function DrinksProgress() {
   });
 
   return (
-    <Conteiner>
-      <ContainerDetails>
-        <ImgDetail
-          style={ { width: '100%' } }
+    <>
+      <ImgDetail>
+        <TitleDetail>
+          <div className="texts">
+            <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
+            <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
+          </div>
+          <div className="buttons">
+            <FavButton
+              id={ drinkId }
+              recipeDetail={ thisRecipe }
+              dataTest="favorite-btn"
+            />
+            <ShareButton type="drink" id={ drinkId } dataTest="share-btn" />
+          </div>
+        </TitleDetail>
+        <img
           data-testid="recipe-photo"
-          alt="drink"
+          alt="food"
           src={ drinkDetail.strDrinkThumb }
         />
-        <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
-        <ShareButton type="drink" id={ drinkId } dataTest="share-btn" />
-        <FavButton id={ drinkId } recipeDetail={ thisRecipe } dataTest="favorite-btn" />
-        <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
+      </ImgDetail>
+      <ContainerDetails>
         <h3>Ingredients</h3>
         <div>
           {drinkIngredients.map((ingredient, index) => (
             <label
               htmlFor={ ingredient }
               key={ ingredient }
-              style={ { display: 'flex', alignItems: 'center' } }
+              style={ ingredientList.includes(ingredient) ? { display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'line-through' } : { display: 'flex',
+                alignItems: 'center' } }
               data-testid={ `${index}-ingredient-step` }
             >
               <input
@@ -151,6 +165,6 @@ export default function DrinksProgress() {
         />
 
       </ContainerDetails>
-    </Conteiner>
+    </>
   );
 }

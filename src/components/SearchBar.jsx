@@ -33,7 +33,7 @@ const Radios = styled.div`
   }
   & label {
     display: flex;
-    color: #4F5054;
+    color: #AABAC1;
     align-items: center;
     letter-spacing: 0.4px;
     padding: 10px;
