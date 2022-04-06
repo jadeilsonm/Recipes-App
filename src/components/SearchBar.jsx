@@ -11,10 +11,10 @@ const Container = styled.div`
   width: 100%;
   
   & button {
-  background-color: #D27842;
+  background-color: #D62D51;
   width: 70%;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   color: #f2f2f2;
   border: none;
   border-radius: 20px;
@@ -42,7 +42,7 @@ const Radios = styled.div`
 
   /* & label::before { */
     /* content: ''; */
-    /* color: #D27842; */
+    /* color: #D62D51; */
     /* display: block; */
     /* height: 3rem;
     width: 3rem; */
@@ -53,11 +53,11 @@ const Radios = styled.div`
     /* transition: 0.3s ease-in-out; */
   /* } */
   /* #ingredient:checked{
-    color: #D27842;
-    background-color: #D27842;
+    color: #D62D51;
+    background-color: #D62D51;
   } */
   label:hover, label:active {
-    color: #D27842;
+    color: #D62D51;
   }
 `;
 

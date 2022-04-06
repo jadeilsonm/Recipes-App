@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Custon = styled.button`
-  background-color: #D27842;
+  background-color: #D62D51;
   width: 90%;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
   border: none;
   border-radius: 20px;

@@ -26,7 +26,7 @@ const Conteiner = styled.div`
     font-size: 24px;
   }
   & .icon:hover, .icon:active  {
-    color: #D27842;
+    color: #D62D51;
     }
   .texto {
     width: 97%;
@@ -34,6 +34,7 @@ const Conteiner = styled.div`
     pointer-events: none;
     position: absolute;
     margin-top: 5px;
+    font-weight: 700;
     text-align: center;
   }
 `;

@@ -19,7 +19,7 @@ const Conteiner = styled.div`
     font-size: 24px;
   }
   & button:hover, button:active  {
-    color: #D27842;
+    color: #D62D51;
     }
   `;
 

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import { Button, Form, ContainerLogin } from './style';
+import logo from '../images/logoRed.png';
 
 export default function Login() {
   const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
@@ -40,7 +41,7 @@ export default function Login() {
 
   return (
     <ContainerLogin>
-      <h1>RecipeHunter</h1>
+      <img alt="logo" src={ logo } />
       <Form>
         <input
           data-testid="email-input"

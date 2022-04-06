@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 export const Global = createGlobalStyle`
   body {
     background-color: #0C1015;
+    font-family: 'PT Sans Caption', sans-serif;
   }
     `;
 
@@ -38,7 +39,7 @@ export const ConteinerTabs = styled.div`
   }
    & button:hover, button:active  {
     margin-top: 2px;
-    color: #D27842;
+    color: #D62D51;
   }
   & p {
     color: #AABAC1;
@@ -47,7 +48,7 @@ export const ConteinerTabs = styled.div`
   }
   & p:hover, p:active  {
     /* margin-top: 2px; */
-    color: #D27842;
+    color: #D62D51;
   }
 `;
 export const ImgDetail = styled.div`
@@ -93,12 +94,10 @@ export const TitleDetail = styled.div`
 export const ContainerDetails = styled.div`
   width: 92%;
   margin: 0 auto;
-  background-color: #0C0F14;
   & h1, h3 {
     color: #f2f2f2 ;
     font-weight: 400;
     margin-top: 25px
-    /* margin-left: 10px; */
   }
   & p, li, label {
     color: #b6bbc7 ;
@@ -114,10 +113,10 @@ export const ContainerDetails = styled.div`
   }
 `;
 export const Button = styled.button`
-  background-color: #D27842;
+  background-color: #D62D51;
   width: 90%;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -203,7 +202,11 @@ export const ContainerLogin = styled.div`
   h1 {
     font-size: 40px;
     font-weight: 700;
-    color: #D27842;
+    color: #D62D51;
+    margin-bottom: 50px;
+  }
+  img {
+    width: 70%;
     margin-bottom: 50px;
   }
 `;

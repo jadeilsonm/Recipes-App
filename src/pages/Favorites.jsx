@@ -20,7 +20,7 @@ const Fav = styled.button`
   padding: 5px;
   margin-left: 5px;
   margin-top: 11px;
-  color: #D27842;
+  color: #D62D51;
   font-size: 24px;
   margin-right: 5px;
 `;

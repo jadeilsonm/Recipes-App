@@ -6,20 +6,18 @@ const Conteiner = styled.div`
   width: 45%;
   text-align: center;
   border-radius: 20px;
-  /* background: rgb(38,43,52); */
   background: linear-gradient(145deg, rgba(38,43,52,1) 0%, rgba(12,15,20,1) 100%);
   color: #f2f2f2;
   margin: 9px;
 
   & h3 {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
     padding: 20px;
   }
 
   & img {
     margin-top: 19px;
-    /* margin-bottom: 15px; */
     width: 80%;
     border-radius: 20px;
   } 

@@ -22,7 +22,7 @@ const Share = styled.button`
   color: #AABAC1;
   font-size: 24px;
   & :hover, :active  {
-    color: #D27842;
+    color: #D62D51;
   }
 `;
 
