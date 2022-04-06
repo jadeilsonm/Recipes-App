@@ -1,12 +1,38 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import Button from './Button';
+import styled from 'styled-components';
+import Lottie from 'react-lottie';
+import animationData from '../images/twitter-heart.json';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function FavButton({ id, recipeDetail, dataTest }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+const Fav = styled.button`
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  margin: 0 auto;
+
+  .icon {
+    pointer-events: none;
+  }
+
+`;
+export default function FavButton({ id, recipeDetail }) {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const favoriteIcon = favoriteRecipes.some((recipe) => recipe.id === id);
+  const reverse = -1;
+  const normal = 1;
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [animationState, setAnimationState] = useState(
+    { isStopped: !favoriteIcon,
+      direction: favoriteIcon ? reverse : normal,
+      isPaused: false,
+    },
+  );
 
   const addFavorite = () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(
@@ -19,25 +45,42 @@ export default function FavButton({ id, recipeDetail, dataTest }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(filter));
     setIsFavorite(!isFavorite);
   };
-  const favoriteIcon = favoriteRecipes.some((recipe) => recipe.id === id);
+  const setFavorite = () => (favoriteIcon ? removeFavorite() : addFavorite());
+  const animation = () => {
+    setAnimationState({ ...animationState,
+      isStopped: !animationState.isStopped,
+    });
+  };
+  const defaultOptions = {
+    loop: false,
+    autoplay: false,
+    animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   return (
-    <Button
-      onClick={
-        favoriteIcon ? removeFavorite : addFavorite
-      }
-      label={
-        <img
-          src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite button"
-          data-testid={ dataTest }
+    <Fav
+      type="button"
+      onClick={ () => {
+        setFavorite();
+        animation();
+      } }
+    >
+      <div className="icon">
+        <Lottie
+          options={ defaultOptions }
+          height={ 300 }
+          width={ 300 }
+          isStopped={ animationState.isStopped }
+          isPaused={ animationState.isPaused }
         />
-      }
-    />
+      </div>
+    </Fav>
   );
 }
 FavButton.propTypes = {
   id: PropTypes.string.isRequired,
-  dataTest: PropTypes.string.isRequired,
   recipeDetail: PropTypes.objectOf(PropTypes.string),
 };
 FavButton.defaultProps = {
