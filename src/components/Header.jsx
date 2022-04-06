@@ -2,37 +2,40 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import Button from './Button';
 
 const Conteiner = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
   background: #0C1015;
   width: 100%;
-  height: 50px;
+  padding: 10px;
   color: #f2f2f2;
-  & button {
-    background: transparent;
+  padding-top: 10px;
+  position: fixed;
+  top: 0;
+
+  & .icon {
+    background-color: transparent ;
+    border-radius: 10px;
     border: none;
+    padding: 5px;
+    margin: 3px;
+    color: #4F5054;
+    font-size: 24px;
   }
-  & img {
-    width: 30px;
+  & .icon:hover, .icon:active  {
     color: #D27842;
-  }
+    }
   .texto {
-    width: 100%;
+    width: 97%;
+    background: transparent;
+    pointer-events: none;
     position: absolute;
     margin-top: 5px;
     text-align: center;
   }
-  .icon {
-    /* width: 20%; */
-  }
-
 `;
 export default function Header({ title, hasSearch }) {
   const [isInput, setIsInput] = useState(false);
@@ -44,29 +47,27 @@ export default function Header({ title, hasSearch }) {
 
   return (
     <Conteiner>
-      <Button
+      <button
         className="icon"
+        type="button"
         onClick={ reditectTo }
-        label={ <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profileIcon"
-        /> }
-      />
+      >
+        <i className="fi fi-ss-user" />
+      </button>
 
       <h1 className="texto" data-testid="page-title">{title}</h1>
 
-      { hasSearch && <Button
-        className="icon"
-        onClick={ onClick }
-        label={ <img
-          data-testid="search-top-btn"
-          src={ searchIcon }
-          alt="searchIcon"
-        /> }
-      />}
+      { hasSearch && (
+        <button
+          className="icon"
+          type="button"
+          onClick={ onClick }
+        >
+          <i className="fi fi-br-search" />
+        </button>
+      )}
       {
-        isInput && <SearchBar />
+        isInput && <SearchBar click={ onClick } />
       }
     </Conteiner>
   );

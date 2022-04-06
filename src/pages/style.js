@@ -1,8 +1,17 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const Global = createGlobalStyle`
+
+  *{
+    background-color: #0C1015;
+    }
+    `;
 
 export const Conteiner = styled.div`
-  background-color: #0C0F14;
+  background-color: #141921;
   width: 100%;
+  /* height: 100vh; */
+  margin: 72px 0px 50px 0px;
 `;
 
 export const ConteinerCards = styled.div`
@@ -17,7 +26,7 @@ export const ConteinerTabs = styled.div`
   height: 40px;
   display: flex;
   overflow-y: scroll;
-  background-color: #0C0F14;
+  background-color: #0C1015;
   border: none;
   padding: 2px;
 
@@ -32,13 +41,44 @@ export const ConteinerTabs = styled.div`
     margin-top: 2px;
     color: #D27842;
   }
+  & p {
+    color: #4F5054;
+    font-size: 16px;
+    margin: 5px 15px;
+  }
+  & p:hover, p:active  {
+    /* margin-top: 2px; */
+    color: #D27842;
+  }
 `;
 export const ImgDetail = styled.img`
-  border-radius: 20px;
+  border-radius: 0 0 25px 25px;
   width: 100%;
-  margin-top: 15px;
+  margin-bottom: 70px;
+  /* margin-top: 15px; */
   /* margin: 0 auto; */
   `;
+export const TitleDetail = styled.div`
+  width: 100%;
+  height: 70px;
+  display: flex;
+  border-radius: 25px;
+  background-color: #000;
+  margin-top: 290px;
+  opacity: 55%;
+  filter: blur(7px)/* (5px) */;
+  position: absolute;
+
+  & h1, p {
+    opacity: 100%;
+    color: #f2f2f2;
+  }
+  & button {
+    background: transparent;
+    border: none;
+  }
+`;
+
 export const ContainerDetails = styled.div`
   width: 92%;
   margin: 0 auto;
@@ -59,7 +99,6 @@ export const ContainerDetails = styled.div`
   & iframe {
     width: 100%;
     height: 190px;
-    /* margin-top: 25px; */
     margin-bottom: 25px;
   }
 `;
@@ -67,9 +106,27 @@ export const Button = styled.button`
   background-color: #D27842;
   width: 90%;
   font-size: 24px;
-  font-weight: 700;
-  color: #0C0F14;
+  font-weight: 500;
+  color: #fff;
+  border: none;
   border-radius: 20px;
   padding: 10px 15px;
   margin: 15px ;
+  :active {
+    margin-top: 18px;
+  }
+`;
+export const ContainerExplore = styled.div`
+  background-color: #0C0F14;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  & p {
+    color: #f2f2f2;
+    font-size: 24px;
+  }
 `;

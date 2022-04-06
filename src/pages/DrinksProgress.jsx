@@ -8,7 +8,6 @@ import FoodContext from '../context/FoodContext';
 
 export default function DrinksProgress() {
   const history = useHistory();
-  const clickByFinish = () => history.push('/done-recipes');
   const [drinkDetail, setDrinkDetail] = useState({});
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [drinkMeasures, setDrinkMeasures] = useState([]);
@@ -18,6 +17,9 @@ export default function DrinksProgress() {
     cocktails: { },
     meals: { },
   };
+
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed).toLocaleDateString();
 
   const location = useLocation();
   const INDEX_LIMIT = 6;
@@ -30,6 +32,14 @@ export default function DrinksProgress() {
     alcoholicOrNot: drinkDetail.strAlcoholic,
     name: drinkDetail.strDrink,
     image: drinkDetail.strDrinkThumb,
+    doneDate: today,
+  };
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const clickByFinish = () => {
+    localStorage.setItem('doneRecipes', JSON.stringify(
+      [...doneRecipes, thisRecipe],
+    ));
+    history.push('/done-recipes');
   };
   const [ingredientList, setIngredientList] = useState(obj.cocktails[drinkId] || []);
 
@@ -120,22 +130,26 @@ export default function DrinksProgress() {
           ))}
         </div>
         <h3>Instructions</h3>
-        <p data-testid="instructions">{drinkDetail.strInstructions}</p>
-        <h3>Recommended</h3>
-        <BootstrapCarousel
-          type="Meal"
-          items={ dataAllFoods.slice(0, INDEX_LIMIT) }
-        />
-
+        <p
+          className="paragraph"
+          data-testid="instructions"
+        >
+          {drinkDetail.strInstructions}
+        </p>
         <Button
           type="button"
           onClick={ clickByFinish }
           data-testid="finish-recipe-btn"
           disabled={ ingredientList.length !== drinkIngredients.length }
         >
-          Finish Recipes
-
+          Finish Recipe
         </Button>
+        <h3>Recommended</h3>
+        <BootstrapCarousel
+          type="Meal"
+          items={ dataAllFoods.slice(0, INDEX_LIMIT) }
+        />
+
       </ContainerDetails>
     </Conteiner>
   );

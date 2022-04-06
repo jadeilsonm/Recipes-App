@@ -88,7 +88,12 @@ export default function DrinksDetail() {
           ))}
         </ul>
         <h3>Instructions</h3>
-        <p data-testid="instructions">{drinkDetail.strInstructions}</p>
+        <p
+          className="paragraph"
+          data-testid="instructions"
+        >
+          {drinkDetail.strInstructions}
+        </p>
         <StartRecipe id={ drinkId } type="drink" />
         <h3>Recommended</h3>
         <BootstrapCarousel

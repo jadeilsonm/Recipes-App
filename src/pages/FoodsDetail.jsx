@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import FavButton from '../components/FavButton';
 import BootstrapCarousel from '../components/BootstrapCarousel';
-import { Conteiner, ImgDetail, ContainerDetails } from './style';
+import { TitleDetail, Conteiner, ImgDetail, ContainerDetails } from './style';
 import ShareButton from '../components/ShareButton';
 import StartRecipe from '../components/StartRecipe';
 import DrinkContext from '../context/DrinkContext';
@@ -68,20 +68,23 @@ export default function FoodsDetail() {
 
   return (
     <Conteiner>
-      <ContainerDetails>
-        <ImgDetail
-          data-testid="recipe-photo"
-          alt="food"
-          src={ foodDetail.strMealThumb }
-        />
+      <TitleDetail />
+      <ImgDetail
+        data-testid="recipe-photo"
+        alt="food"
+        src={ foodDetail.strMealThumb }
+      />
+      <div>
         <h1 data-testid="recipe-title">{foodDetail.strMeal}</h1>
         <p data-testid="recipe-category">{foodDetail.strCategory}</p>
-        <ShareButton type="food" id={ foodId } dataTest="share-btn" />
-        <FavButton
-          id={ foodId }
-          recipeDetail={ thisRecipe }
-          dataTest="favorite-btn"
-        />
+      </div>
+      <ShareButton type="food" id={ foodId } dataTest="share-btn" />
+      <FavButton
+        id={ foodId }
+        recipeDetail={ thisRecipe }
+        dataTest="favorite-btn"
+      />
+      <ContainerDetails>
         <h3>Ingredients</h3>
         <ul>
           {foodIngredients.map((ingredient, index) => (

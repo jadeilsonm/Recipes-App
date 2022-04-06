@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Conteiner } from './style';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import DrinkContext from '../context/DrinkContext';
@@ -9,7 +10,7 @@ export default function EDIngredients() {
   const urlImage = 'https://www.thecocktaildb.com/images/ingredients/';
 
   return (
-    <div>
+    <Conteiner>
       <Header title="Explore Ingredients" hasSearch={ false } />
       {dataIngredients.map(({ strIngredient1 }, index) => (
         <IngredientCard
@@ -21,6 +22,6 @@ export default function EDIngredients() {
         />
       ))}
       <Menu />
-    </div>
+    </Conteiner>
   );
 }

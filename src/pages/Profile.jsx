@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { ContainerExplore } from './style';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Menu from '../components/Menu';
@@ -9,7 +10,7 @@ export default function Profile() {
   const history = useHistory();
 
   return (
-    <div>
+    <ContainerExplore>
       <Header title="Profile" hasSearch={ false } />
       { user && <p data-testid="profile-email">{user.email}</p> }
       <Button
@@ -31,6 +32,6 @@ export default function Profile() {
         } }
       />
       <Menu />
-    </div>
+    </ContainerExplore>
   );
 }

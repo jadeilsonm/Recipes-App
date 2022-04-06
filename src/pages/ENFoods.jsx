@@ -1,10 +1,24 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { Conteiner, ConteinerCards } from './style';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import FoodContext from '../context/FoodContext';
 import UserContext from '../context/UserContext';
 import Cards from '../components/Cards';
+
+const Select = styled.select`
+  width: 91%;
+  /* text-align: center; */
+  margin: 15px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: #141921;
+  color: #f8f8f8;
+  font-size: 18px;
+`;
 
 export default function ENFoods() {
   const { dataAreas, filteredData, dataAllFoods } = useContext(FoodContext);
@@ -20,9 +34,10 @@ export default function ENFoods() {
   }, [dataAllFoods, filteredData]);
 
   return (
-    <div>
+    <Conteiner>
       <Header title="Explore Nationalities" />
-      <select
+      {/* <Global> */}
+      <Select
         data-testid="explore-by-nationality-dropdown"
         onChange={ ({ target: { value } }) => {
           if (value === 'All') {
@@ -42,9 +57,9 @@ export default function ENFoods() {
             { strArea }
           </option>
         ))}
-      </select>
-
-      <div>
+      </Select>
+      {/* </Global> */}
+      <ConteinerCards>
         {dataFoods && dataFoods.slice(0, magicNumber).map((food, index) => {
           const clickCard = ({ target: { value } }) => {
             if (!value) {
@@ -60,8 +75,8 @@ export default function ENFoods() {
               clickCard={ clickCard }
             />);
         })}
-      </div>
+      </ConteinerCards>
       <Menu />
-    </div>
+    </Conteiner>
   );
 }

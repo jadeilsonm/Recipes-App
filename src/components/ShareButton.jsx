@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import Button from './Button';
-import shareIcon from '../images/shareIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton({ type, id, dataTest }) {
+export default function ShareButton({ type, id /* dataTest */ }) {
   const [click, setClick] = useState(false);
   return (
     <div>
@@ -17,11 +17,12 @@ export default function ShareButton({ type, id, dataTest }) {
           setClick(!click);
         } }
         label={
-          <img
-            src={ shareIcon }
-            alt={ shareIcon }
-            data-testid={ dataTest }
-          />
+          // <img
+          //   src={ shareIcon }
+          //   alt={ shareIcon }
+          //   data-testid={ dataTest }
+          // />
+          <i className="fi fi-sr-share" />
         }
       />
     </div>
@@ -30,5 +31,5 @@ export default function ShareButton({ type, id, dataTest }) {
 ShareButton.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  dataTest: PropTypes.string.isRequired,
+  // dataTest: PropTypes.string.isRequired,
 };

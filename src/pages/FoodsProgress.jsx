@@ -17,9 +17,7 @@ export default function FoodsProgress() {
     cocktails: { },
     meals: { },
   };
-
   const location = useLocation();
-  const clickByFinish = () => history.push('/done-recipes');
   const INDEX_LIMIT = 6;
   const foodId = location.pathname.replace(/[^0-9]/g, '');
   const [ingredientList, setIngredientList] = useState(obj.meals[foodId] || []);
@@ -31,6 +29,13 @@ export default function FoodsProgress() {
     alcoholicOrNot: '',
     name: foodDetail.strMeal,
     image: foodDetail.strMealThumb,
+  };
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const clickByFinish = () => {
+    localStorage.setItem('doneRecipes', JSON.stringify(
+      [...doneRecipes, thisRecipe],
+    ));
+    history.push('/done-recipes');
   };
 
   const pathVideo = foodDetail.strYoutube;
@@ -152,8 +157,7 @@ export default function FoodsProgress() {
           data-testid="finish-recipe-btn"
           disabled={ ingredientList.length !== foodIngredients.length }
         >
-          Finish Recipes
-
+          Finish Recipe
         </Button>
         <h3>Recommended</h3>
         <BootstrapCarousel
