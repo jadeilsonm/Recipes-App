@@ -13,7 +13,6 @@ const Search = styled.label`
     color: #f8f8f8;
     font-size: 18px;
   }
-  
 `;
 export default function Input({ label, type, name, value, onChange, dataTest }) {
   return (

@@ -61,7 +61,6 @@ export const ImgDetail = styled.div`
    width: 100%;
    margin-bottom: 62px;
   }
-
   `;
 export const TitleDetail = styled.div`
   border-radius: 25px;
@@ -175,4 +174,36 @@ export const LargeCard = styled.div`
     padding: 5px;
     margin-right: 10px;
   } 
+`;
+export const Form = styled.label`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  & input {
+    width: 90%;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+    background-color: #141921;
+    color: #f8f8f8;
+    font-size: 18px;
+    margin: 10px;
+  }
+`;
+export const ContainerLogin = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #D27842;
+    margin-bottom: 50px;
+  }
 `;
