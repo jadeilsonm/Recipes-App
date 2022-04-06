@@ -130,3 +130,37 @@ export const ContainerExplore = styled.div`
     font-size: 24px;
   }
 `;
+export const LargeCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around ;
+  width: 90%;
+  border-radius: 25px;
+  background: linear-gradient(145deg, rgba(38,43,52,1) 0%, rgba(12,15,20,1) 100%);
+  margin: 9px;
+  /* padding: 5px; */
+  a {
+    width: 70%;
+  }
+  .main {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    color: #f2f2f2;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    background: transparent;
+  }
+  h4, h5 {
+    font-size: 12px;
+  }
+  img {
+    width: 40%;
+    border-radius: 20px;
+    background: transparent;
+    padding: 5px;
+    margin-right: 10px;
+  } 
+`;

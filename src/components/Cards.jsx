@@ -49,8 +49,12 @@ function Cards(props) {
 Cards.propTypes = {
   name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  clickCard: PropTypes.func.isRequired,
+  index: PropTypes.number,
+  clickCard: PropTypes.func,
+};
+Cards.defaultProps = {
+  index: 0,
+  clickCard: null,
 };
 
 export default Cards;

@@ -9,7 +9,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-
   <BrowserRouter>
     <UserProvider>
       <FoodProvider>
@@ -19,7 +18,6 @@ ReactDOM.render(
       </FoodProvider>
     </UserProvider>
   </BrowserRouter>,
-
   document.getElementById('root'),
 );
 

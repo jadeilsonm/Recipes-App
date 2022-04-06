@@ -14,8 +14,7 @@ const Fav = styled.button`
   justify-content: center;
   height: 50px;
   width: 50px;
-  margin: 0 auto;
-
+  /* margin: 0 auto; */
   .icon {
     pointer-events: none;
   }
