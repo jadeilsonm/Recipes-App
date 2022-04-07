@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { TitleDetail, ImgDetail, ContainerDetails } from './style';
 import FavButton from '../components/FavButton';
 import BootstrapCarousel from '../components/BootstrapCarousel';
 import ShareButton from '../components/ShareButton';
@@ -61,38 +62,56 @@ export default function DrinksDetail() {
   }, [drinkDetail]);
 
   return (
-    <div style={ { width: '100%' } }>
-      <img
-        style={ { width: '100%' } }
-        data-testid="recipe-photo"
-        alt="drink"
-        src={ drinkDetail.strDrinkThumb }
-      />
-      <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
-      <ShareButton type="drink" id={ drinkId } dataTest="share-btn" />
-      <FavButton id={ drinkId } recipeDetail={ thisRecipe } dataTest="favorite-btn" />
-      <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
-      <h3>Ingredients</h3>
-      <ul>
-        {drinkIngredients.map((ingredient, index) => (
-          <li
-            key={ ingredient }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ingredient}
-            -
-            {drinkMeasures[index]}
-          </li>
-        ))}
-      </ul>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{drinkDetail.strInstructions}</p>
-      <h3>Recommended</h3>
-      <BootstrapCarousel
-        type="Meal"
-        items={ dataAllFoods.slice(0, INDEX_LIMIT) }
-      />
-      <StartRecipe id={ drinkId } type="drink" />
-    </div>
+    <>
+      <ImgDetail>
+        <TitleDetail>
+          <div className="texts">
+            <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
+            <p data-testid="recipe-category">{drinkDetail.strAlcoholic}</p>
+          </div>
+          <div className="buttons">
+            <FavButton
+              id={ drinkId }
+              recipeDetail={ thisRecipe }
+              dataTest="favorite-btn"
+            />
+            <ShareButton type="drink" id={ drinkId } dataTest="share-btn" />
+          </div>
+        </TitleDetail>
+        <img
+          data-testid="recipe-photo"
+          alt="food"
+          src={ drinkDetail.strDrinkThumb }
+        />
+      </ImgDetail>
+      <ContainerDetails>
+        <h3>Ingredients</h3>
+        <ul>
+          {drinkIngredients.map((ingredient, index) => (
+            <li
+              key={ ingredient }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {ingredient}
+              -
+              {drinkMeasures[index]}
+            </li>
+          ))}
+        </ul>
+        <h3>Instructions</h3>
+        <p
+          className="paragraph"
+          data-testid="instructions"
+        >
+          {drinkDetail.strInstructions}
+        </p>
+        <StartRecipe id={ drinkId } type="drink" />
+        <h3>Recommended</h3>
+        <BootstrapCarousel
+          type="Meal"
+          items={ dataAllFoods.slice(0, INDEX_LIMIT) }
+        />
+      </ContainerDetails>
+    </>
   );
 }

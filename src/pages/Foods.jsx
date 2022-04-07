@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Conteiner, ConteinerCards, ConteinerTabs } from './style';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -43,30 +44,31 @@ export default function Foods() {
   };
 
   return (
-    <div>
+    <Conteiner>
       <Header title="Foods" />
-      Foods
-      {
-        dataCategory.slice(0, LIMIT_MAX_CATEGORY).map(({ strCategory: cat }) => (
-          <button
-            key={ cat }
-            type="button"
-            value={ cat }
-            data-testid={ `${cat}-category-filter` }
-            onClick={ ({ target: { value } }) => clickByCategory(value) }
-          >
-            {cat}
-          </button>
-        ))
-      }
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => setIsFilterAll(true) }
-      >
-        All
-      </button>
-      <div>
+      <ConteinerTabs>
+        {
+          dataCategory.slice(0, LIMIT_MAX_CATEGORY).map(({ strCategory: cat }) => (
+            <button
+              key={ cat }
+              type="button"
+              value={ cat }
+              data-testid={ `${cat}-category-filter` }
+              onClick={ ({ target: { value } }) => clickByCategory(value) }
+            >
+              {cat}
+            </button>
+          ))
+        }
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => setIsFilterAll(true) }
+        >
+          All
+        </button>
+      </ConteinerTabs>
+      <ConteinerCards>
         { arrCards.slice(0, LIMIT_MAX_CARDS)
           .map(({ strMealThumb, strMeal, idMeal }, i) => {
             const clickCard = ({ target: { value } }) => {
@@ -83,8 +85,8 @@ export default function Foods() {
               index={ i }
             />);
           })}
-      </div>
+      </ConteinerCards>
       <Menu />
-    </div>
+    </Conteiner>
   );
 }

@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import { Button, Form, ContainerLogin } from './style';
+import logo from '../images/logoRed.png';
 
 export default function Login() {
   const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
@@ -38,14 +40,9 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form
-        onSubmit={ (event) => {
-          event.preventDefault();
-          onLoginSubmitButton();
-        } }
-      >
+    <ContainerLogin>
+      <img alt="logo" src={ logo } />
+      <Form>
         <input
           data-testid="email-input"
           placeholder="Email"
@@ -60,14 +57,15 @@ export default function Login() {
           value={ password }
           onChange={ handleChangePassword }
         />
-        <button
+        <Button
           data-testid="login-submit-btn"
-          type="submit"
+          type="button"
           disabled={ isLoginButtonDisabled }
+          onClick={ onLoginSubmitButton }
         >
           Enter
-        </button>
-      </form>
-    </div>
+        </Button>
+      </Form>
+    </ContainerLogin>
   );
 }

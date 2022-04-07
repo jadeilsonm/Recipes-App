@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Conteiner } from './style';
 import IngredientCard from '../components/IngredientCard';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -9,7 +10,7 @@ export default function EFIngredients() {
   const urlImage = 'https://www.themealdb.com/images/ingredients/';
 
   return (
-    <div>
+    <Conteiner>
       <Header title="Explore Ingredients" hasSearch={ false } />
       {dataIngredients.map(({ strIngredient }, index) => (
         <IngredientCard
@@ -21,6 +22,6 @@ export default function EFIngredients() {
         />
       ))}
       <Menu />
-    </div>
+    </Conteiner>
   );
 }

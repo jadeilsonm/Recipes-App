@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Conteiner, ConteinerCards, ConteinerTabs } from './style';
 import Cards from '../components/Cards';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -41,42 +42,46 @@ export default function Drinks() {
   };
 
   return (
-    <div>
+    <Conteiner>
       <Header title="Drinks" />
       <Menu />
-      Drinks
-      {
-        newArrCategory.slice(0, LIMIT_MAX_CATEGORY).map(({ strCategory: cat }) => (
-          <button
-            key={ cat }
-            type="button"
-            value={ cat }
-            data-testid={ `${cat}-category-filter` }
-            onClick={ ({ target: { value } }) => clickByCategory(value) }
-          >
-            {cat}
-          </button>
-        ))
-      }
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => setIsFilterAll(true) }
-      >
-        All
-      </button>
-      { arrCards.slice(0, LIMIT_MAX_CARDS)
-        .map(({ strDrinkThumb, strDrink, idDrink }, i) => {
-          const clickCard = () => history.push(`/drinks/${idDrink}`);
-          return (<Cards
-            key={ i }
-            id={ idDrink }
-            name={ strDrink }
-            thumb={ strDrinkThumb }
-            clickCard={ clickCard }
-            index={ i }
-          />);
-        })}
-    </div>
+      <ConteinerTabs>
+        {
+          newArrCategory.slice(0, LIMIT_MAX_CATEGORY).map(({ strCategory: cat }) => (
+            <button
+              key={ cat }
+              type="button"
+              value={ cat }
+              data-testid={ `${cat}-category-filter` }
+              onClick={ ({ target: { value } }) => clickByCategory(value) }
+            >
+              {cat === 'Ordinary Drink' ? 'Ordinary' : cat }
+            </button>
+          ))
+        }
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => setIsFilterAll(true) }
+        >
+          All
+        </button>
+      </ConteinerTabs>
+      <ConteinerCards>
+
+        { arrCards.slice(0, LIMIT_MAX_CARDS)
+          .map(({ strDrinkThumb, strDrink, idDrink }, i) => {
+            const clickCard = () => history.push(`/drinks/${idDrink}`);
+            return (<Cards
+              key={ i }
+              id={ idDrink }
+              name={ strDrink }
+              thumb={ strDrinkThumb }
+              clickCard={ clickCard }
+              index={ i }
+            />);
+          })}
+      </ConteinerCards>
+    </Conteiner>
   );
 }

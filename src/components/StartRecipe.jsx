@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { string } from 'prop-types';
+import { Button } from '../pages/style';
 
 export default function StartRecipe({ id, type }) {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -18,14 +19,13 @@ export default function StartRecipe({ id, type }) {
   return (
     <div>
       {!done && (
-        <button
-          style={ { position: 'fixed', bottom: '0px' } }
+        <Button
           onClick={ () => history.push(`/${type}s/${id}/in-progress`) }
           type="button"
           data-testid="start-recipe-btn"
         >
           {progressRecipes ? 'Continue Recipe' : 'Start Recipe'}
-        </button>
+        </Button>
       )}
     </div>
   );

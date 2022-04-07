@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import { ContainerExplore } from './style';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import Button from '../components/Button';
@@ -19,7 +20,7 @@ export default function ExploreFoods() {
   const path = location.pathname.slice(magicNumber);
 
   return (
-    <div>
+    <ContainerExplore>
       <Header title="Explore Foods" hasSearch={ false } />
       <Menu />
       <Button
@@ -49,6 +50,6 @@ export default function ExploreFoods() {
           <h4 data-testid={ `${index}-card-name` }>{ filterFood.strMeal }</h4>
         </div>
       ))}
-    </div>
+    </ContainerExplore>
   );
 }

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import { ContainerExplore } from './style';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import Button from '../components/Button';
@@ -18,7 +19,7 @@ export default function ExploreDrinks() {
   const path = location.pathname.slice(magicNumber);
 
   return (
-    <div>
+    <ContainerExplore>
       <Header title="Explore Drinks" hasSearch={ false } />
       <Menu />
       <Button
@@ -43,7 +44,7 @@ export default function ExploreDrinks() {
           <h4 data-testid={ `${index}-card-name` }>{ filterDrink.strDrink }</h4>
         </div>
       ))}
-    </div>
+    </ContainerExplore>
   );
 }
 

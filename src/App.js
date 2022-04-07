@@ -18,11 +18,13 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import Favorites from './pages/Favorites';
 import NotFound from './components/NotFound';
+import Home from './pages/Home';
 
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
+      <Route exact path="/" component={ Home } />
+      <Route path="/login" component={ Login } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
       <Route exact path="/foods/:id" component={ FoodsDetail } />

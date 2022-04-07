@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { ContainerExplore } from './style';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
 import Button from '../components/Button';
@@ -7,7 +8,7 @@ import Button from '../components/Button';
 export default function Explore() {
   const history = useHistory();
   return (
-    <div>
+    <ContainerExplore>
       <Header title="Explore" hasSearch={ false } />
       <Menu />
       <Button
@@ -20,6 +21,6 @@ export default function Explore() {
         dataTest="explore-drinks"
         onClick={ () => history.push('/explore/drinks') }
       />
-    </div>
+    </ContainerExplore>
   );
 }

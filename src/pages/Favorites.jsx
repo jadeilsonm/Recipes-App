@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from '../components/Header';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import Button from '../components/Button';
+import Menu from '../components/Menu';
 import ShareButton from '../components/ShareButton';
+import { LargeCard, ConteinerTabs } from './style';
+
+const Conteiner = styled.div`
+  background-color: #0C1015;
+  width: 100%;
+  height: 100vh;
+  margin: 72px 0px 0 0px;
+  justify-content: center;
+`;
+
+const Fav = styled.button`
+  background-color: transparent ;
+  border: none;
+  padding: 5px;
+  margin-left: 5px;
+  margin-top: 11px;
+  color: #D62D51;
+  font-size: 24px;
+  margin-right: 5px;
+`;
 
 export default function Favorites() {
   const [filter, setFilter] = useState('');
@@ -18,59 +38,75 @@ export default function Favorites() {
     localStorage.setItem('favoriteRecipes', JSON.stringify(tests));
   };
   return (
-    <div>
-
+    <Conteiner>
       <Header title="Favorite Recipes" hasSearch={ false } />
-      <Button
-        dataTest="filter-by-all-btn"
-        onClick={ () => setFilter('') }
-        label="All"
-      />
-      <Button
-        dataTest="filter-by-food-btn"
-        onClick={ () => setFilter('food') }
-        label="Food"
-      />
-      <Button
-        dataTest="filter-by-drink-btn"
-        onClick={ () => setFilter('drink') }
-        label="Drinks"
-      />
+      <Menu />
+      <ConteinerTabs>
+        <div
+          onClick={ () => setFilter('') }
+          role="button"
+          tabIndex={ 0 }
+          aria-hidden="true"
+        >
+          <p>All</p>
+        </div>
+        <div
+          onClick={ () => setFilter('food') }
+          role="button"
+          tabIndex={ 0 }
+          aria-hidden="true"
+        >
+          <p>Food</p>
+        </div>
+        <div
+          onClick={ () => setFilter('drink') }
+          role="button"
+          tabIndex={ 0 }
+          aria-hidden="true"
+        >
+          <p>Drinks</p>
+        </div>
+      </ConteinerTabs>
       {favoriteRecipes
         && filters().map((recipe, index) => (
-          <div key={ index } style={ { width: '100%', border: '1px solid black' } }>
-            <Link key={ recipe.name } to={ `/${recipe.type}s/${recipe.id}` }>
-              <img
-                style={ { width: '20%' } }
-                src={ recipe.image }
-                alt={ index }
-                data-testid={ `${index}-horizontal-image` }
-              />
-              <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+          <LargeCard key={ index }>
+            <Link
+              key={ recipe.name }
+              style={ { textDecoration: 'none' } }
+              to={ `/${recipe.type}s/${recipe.id}` }
+            >
+              <div className="main">
+                <img
+                  src={ recipe.image }
+                  alt={ index }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+                <div>
+
+                  <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+                  <h4 data-testid={ `${index}-horizontal-top-text` }>
+                    {`${recipe.nationality} ${recipe.alcoholicOrNot}
+                    - ${recipe.category}`}
+                  </h4>
+                </div>
+              </div>
             </Link>
-            <h4 data-testid={ `${index}-horizontal-top-text` }>
-              {`${recipe.nationality} ${recipe.alcoholicOrNot} - ${recipe.category}`}
-            </h4>
             <ShareButton
               type={ recipe.type }
               id={ recipe.id }
               dataTest={ `${index}-horizontal-share-btn` }
             />
-            <Button
+            <Fav
+              type="button"
               onClick={ () => {
                 removeFavoriteRecipe(recipe.id);
                 setRemove(!remove);
               } }
-              label={
-                <img
-                  src={ blackHeartIcon }
-                  alt={ index }
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                />
-              }
-            />
-          </div>
+            >
+              <i className="fi fi-ss-trash" />
+            </Fav>
+          </LargeCard>
         ))}
-    </div>
+    </Conteiner>
   );
 }
