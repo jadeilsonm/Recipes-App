@@ -180,6 +180,9 @@ export const Form = styled.label`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: form 1s cubic-bezier(.25,.46,.45,.94) 1.5s both;
   & input {
     width: 90%;
     padding: 10px 25px;
@@ -190,6 +193,12 @@ export const Form = styled.label`
     font-size: 18px;
     margin: 10px;
   }
+
+  @keyframes form {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }}
 `;
 export const ContainerLogin = styled.div`
   width: 100%;
@@ -208,5 +217,16 @@ export const ContainerLogin = styled.div`
   img {
     width: 70%;
     margin-bottom: 50px;
+    transform: scale(5);
+    opacity: 0;
+    animation: logo 1s cubic-bezier(.25,.46,.45,.94) both;
   }
+
+  @keyframes logo {
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 `;
