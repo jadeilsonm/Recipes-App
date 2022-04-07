@@ -12,10 +12,11 @@ const Fav = styled.button`
   justify-content: center;
   height: 50px;
   width: 50px;
-  /* padding: 2px; */
-  margin: 0 10px;
+  margin-right: 10px;
+  
   .icon {
     pointer-events: none;
+    padding: 0px;
   }
 
 `;
@@ -68,8 +69,8 @@ export default function FavButton({ id, recipeDetail }) {
       <div className="icon">
         <Lottie
           options={ defaultOptions }
-          height={ 250 }
-          width={ 250 }
+          height={ 210 }
+          width={ 210 }
           isStopped={ animationState.isStopped }
           isPaused={ animationState.isPaused }
         />

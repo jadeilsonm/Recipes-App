@@ -9,8 +9,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  opacity: 0;
+  transform: translateX(50px);
+  animation: form 1s cubic-bezier(.25,.46,.45,.94) both;
   
-  & button {
+  button {
   background-color: #D62D51;
   width: 70%;
   font-size: 18px;
@@ -21,6 +24,12 @@ const Container = styled.div`
   padding: 5px;
   margin: 0 auto ;
   }
+
+  @keyframes form {
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }}
 `;
 const Radios = styled.div`
   margin: 30px 0;
@@ -40,22 +49,6 @@ const Radios = styled.div`
     cursor: pointer;
   }
 
-  /* & label::before { */
-    /* content: ''; */
-    /* color: #D62D51; */
-    /* display: block; */
-    /* height: 3rem;
-    width: 3rem; */
-    /* box-sizing: border-box; */
-    /* border-radius: 50%; */
-    /* margin-right: 10px; */
-    /* background-color: red; */
-    /* transition: 0.3s ease-in-out; */
-  /* } */
-  /* #ingredient:checked{
-    color: #D62D51;
-    background-color: #D62D51;
-  } */
   label:hover, label:active {
     color: #D62D51;
   }

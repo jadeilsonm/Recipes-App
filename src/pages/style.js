@@ -3,23 +3,20 @@ import styled, { createGlobalStyle } from 'styled-components';
 export const Global = createGlobalStyle`
   body {
     background-color: #0C1015;
+    color: #D62D51;
     font-family: 'PT Sans Caption', sans-serif;
   }
-    `;
-
+`;
 export const Conteiner = styled.div`
   background-color: #0C1015;
   width: 100%;
-  /* height: 100vh; */
   margin: 72px 0px 50px 0px;
 `;
-
 export const ConteinerCards = styled.div`
   display: flex;
   flex-wrap: wrap;
   background-color: #0C0F14;
 `;
-
 export const ConteinerTabs = styled.div`
   width: 100%;
   display: flex;
@@ -29,25 +26,23 @@ export const ConteinerTabs = styled.div`
   background-color: #0C1015;
   border: none;
   padding: 2px;
-
-  & button {
+  button {
     background: transparent;
     border: none;
     color: #AABAC1;
     font-size: 16px;
     margin: 2px;
   }
-   & button:hover, button:active  {
+  button:hover, button:active  {
     margin-top: 2px;
     color: #D62D51;
   }
-  & p {
+  p {
     color: #AABAC1;
     font-size: 16px;
     margin: 5px 15px;
   }
-  & p:hover, p:active  {
-    /* margin-top: 2px; */
+  p:hover, p:active  {
     color: #D62D51;
   }
 `;
@@ -56,7 +51,6 @@ export const ImgDetail = styled.div`
   flex-direction: column;
   justify-items: end;
   justify-content: end;
-
   img{
    border-radius: 25px;
    width: 100%;
@@ -76,10 +70,17 @@ export const TitleDetail = styled.div`
   .buttons {
     display: flex;
     align-items: center;
+    width: 30%;
+  }
+  .texts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 55%;
   }
   h1 {
     color: #f2f2f2;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     margin: 0;
   }
@@ -90,23 +91,24 @@ export const TitleDetail = styled.div`
     margin: 0;
   }
 `;
-
 export const ContainerDetails = styled.div`
   width: 92%;
   margin: 0 auto;
-  & h1, h3 {
+  h1, h3 {
     color: #f2f2f2 ;
+    font-size: 20px;
     font-weight: 400;
-    margin-top: 25px
+    margin-top: 25px;
+    margin-bottom: 20px;
   }
-  & p, li, label {
+  p, li, label {
     color: #b6bbc7 ;
   }
   .paragraph {
     text-align: justify;
     margin: 5px;
   }
-  & iframe {
+  iframe {
     width: 100%;
     height: 190px;
     margin-bottom: 25px;
@@ -134,8 +136,7 @@ export const ContainerExplore = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  & p {
+  p {
     color: #f2f2f2;
     font-size: 24px;
   }
@@ -148,7 +149,6 @@ export const LargeCard = styled.div`
   border-radius: 25px;
   background: linear-gradient(145deg, rgba(38,43,52,1) 0%, rgba(12,15,20,1) 100%);
   margin: 9px;
-  /* padding: 5px; */
   a {
     width: 70%;
   }
@@ -183,7 +183,7 @@ export const Form = styled.label`
   opacity: 0;
   transform: translateY(50px);
   animation: form 1s cubic-bezier(.25,.46,.45,.94) 1.5s both;
-  & input {
+  input {
     width: 90%;
     padding: 10px 25px;
     border: none;
@@ -193,7 +193,6 @@ export const Form = styled.label`
     font-size: 18px;
     margin: 10px;
   }
-
   @keyframes form {
   100% {
     opacity: 1;
@@ -207,7 +206,6 @@ export const ContainerLogin = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   h1 {
     font-size: 40px;
     font-weight: 700;
@@ -221,12 +219,10 @@ export const ContainerLogin = styled.div`
     opacity: 0;
     animation: logo 1s cubic-bezier(.25,.46,.45,.94) both;
   }
-
   @keyframes logo {
   100% {
     transform: scale(1);
     opacity: 1;
   }
 }
-
 `;

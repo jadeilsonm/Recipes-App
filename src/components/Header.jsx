@@ -32,8 +32,10 @@ const Conteiner = styled.div`
     width: 97%;
     background: transparent;
     pointer-events: none;
+    font-size: 22px;
+    letter-spacing: 0.1rem;
     position: absolute;
-    margin-top: 5px;
+    margin-top: 9px;
     font-weight: 700;
     text-align: center;
   }
