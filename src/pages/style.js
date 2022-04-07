@@ -215,7 +215,7 @@ export const ContainerLogin = styled.div`
   img {
     width: 70%;
     margin-bottom: 50px;
-    transform: scale(5);
+    transform: scale(1.5);
     opacity: 0;
     animation: logo 1s cubic-bezier(.25,.46,.45,.94) both;
   }

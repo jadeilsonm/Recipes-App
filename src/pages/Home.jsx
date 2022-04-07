@@ -39,7 +39,7 @@ const ContainerHome = styled.div`
   .logo {
     width: 70%;
     margin-top: 50px;
-    transform: scale(2);
+    transform: scale(1.5);
     opacity: 0;
     animation: logo 1s cubic-bezier(.25,.46,.45,.94) both;
   }
